@@ -1,24 +1,9 @@
-<style>
-code {
-    font-size: 25px;
-}
-pre {
-    font-size: 25px;
-}
-body {
-    font-size: 20px;
-}
-h1 {
-    font-size: 30px;
-}
-p {
-    font-size: 20px;
-}
-</style>
+
+<div STYLE="page-break-after: always;"></div>
 
 # **模板**
 
-## **开头**
+## **空白开头**
 
 ```cpp
 #include<bits/stdc++.h>
@@ -37,8 +22,6 @@ int main(){
    return 0;  
 }
 ```
-
-<div STYLE="page-break-after: always;"></div>
 
 ## **优先队列（堆）**
 
@@ -89,7 +72,6 @@ int main(){
     }
 ```
 
-<div STYLE="page-break-after: always;"></div>
 
 ## **并查集**
 
@@ -130,8 +112,6 @@ int find(int x){
         return num[x];  
     }  
 }  
-```
-```cpp
 int main(){  
     ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);  
     int n,m;  
@@ -148,9 +128,6 @@ int main(){
     return 0;  
 }
 ```
-
-<div STYLE="page-break-after: always;"></div>
-
 ## **最小生成树模板**
 
 ### P3366 【模板】最小生成树
@@ -189,8 +166,6 @@ int find(int x){
         return f[x];  
     }  
 }  
-```
-```cpp
 bool cmp(edge a,edge b){return a.val<b.val;}  
 void kruskal(){  
     for(int i=1;i<=m;i++){  
@@ -221,7 +196,6 @@ int main(){
     return 0;  
 }
 ```
-<div STYLE="page-break-after: always;"></div>
 
 ## **快速幂模板**
 
@@ -262,7 +236,7 @@ signed main(){
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **采药dp**
 
@@ -310,7 +284,7 @@ int main(){
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **最大公约数**
 
@@ -338,7 +312,7 @@ int main(){
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **合并果子（堆）**
 
@@ -371,9 +345,7 @@ int main(){
 using namespace std;  
 const int M=1e5+10;  
 int n,x,ans;  
-priority_queue<int,vector<int>,greater<int> >q;  
-```
-```cpp   
+priority_queue<int,vector<int>,greater<int> >q;   
 int main(){  
     ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);  
     cin>>n;  
@@ -394,7 +366,7 @@ int main(){
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **全排列**
 
@@ -431,7 +403,7 @@ int main(){
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **约瑟夫（队列）**
 ```cpp
@@ -462,7 +434,7 @@ int main(){
 ```
 
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **马的遍历**
 
@@ -519,7 +491,7 @@ int main(){
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **二分**
 
@@ -554,7 +526,7 @@ int main(){
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **线性筛素数**
 
@@ -594,8 +566,6 @@ void check(int n){
         }  
     }  
 }  
-```
-```cpp
 signed main(){  
     ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);  
     cin>>n>>q;  
@@ -609,7 +579,7 @@ signed main(){
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **查找文献（dfs）**
 
@@ -623,7 +593,8 @@ signed main(){
 
 这边是已经整理好的参考文献关系图，其中，文献 $X\to Y$ 表示文章 $X$ 有参考文献 $Y$。不保证编号为 $1$ 的文章没有被其他文章引用。
 
-![](https://cdn.luogu.com.cn/upload/image_hosting/f4n4tlhi.png)
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/f4n4tlhi.png" width="300" height="200" alt="缩小的图片">
+
 
 请对这个图分别进行 DFS 和 BFS，并输出遍历结果。如果有很多篇文章可以参阅，请先看编号较小的那篇（因此你可能需要先排序）。
 
@@ -680,7 +651,7 @@ int main(){
 }        
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **运算符重载**
 
@@ -691,30 +662,49 @@ Point ret; ret.x = a.x + b.x; ret.y = a.y + b.y; return ret;
 }
 ```
 
-## **快读模板**
+## **快读快写模板**
 ```cpp
-char *p1,*p2,buf[100000]; #define nc() (p1==p2 && (p2=(p1=buf)+fread(buf,1,100000,stdin),p1==p2)?EOF:*p1++)
-
- int read() {
-
-int x=0,f=1;
-
-char ch=nc(); while(ch<48||ch>57) { if(ch=='-')
-
-f=-1;
-
-ch=nc(); } while(ch>=48&&ch<=57)   x=x*10+ch-48,ch=nc(); return x*f;
-
+#include<bits/stdc++.h>
+using namespace std;
+inline int read(){
+    int x=0,f=1;
+    char ch=getchar();
+    while(ch<'0'||ch>'9'){
+        if(ch=='-')
+            f=-1;
+        ch=getchar();
+    }
+    while(ch>='0'&&ch<='9'){
+        x=(x<<1)+(x<<3)+(ch^48);
+        ch=getchar();
+    }
+    return x*f;
 }
+inline void write(int x)
+{
+    if(x<0){
+    	putchar('-');
+		x=-x;
+	}
+    if(x>9) 
+		write(x/10);
+    putchar(x%10+'0');
+}
+
+int main(){
+	int n;
+	n=read();
+	for(int i=1;i<=n;i++){
+		int a;
+		a=read();
+		write(a);
+		putchar(' ');
+	}
+	return 0;
+} 
+
 ```
-
-
-## **快写模板**
-
-```cpp
-void write(int x) { if(x<0) putchar('-'),x=-x; if(x>9) write(x/10); putchar(x%10+'0'); return; }
-```
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **前缀和函数**
 
@@ -748,7 +738,7 @@ cout << B[i] << " ";
 return 0; }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **排队接水（包含小数位的保留）**
 
@@ -787,7 +777,7 @@ int main(){
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **manacher算法（O（n）判断回文串）**
 ```cpp
@@ -829,7 +819,7 @@ int main() {
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **最短路径算法（迪杰斯特拉）**
 ```cpp
@@ -902,7 +892,7 @@ int main()
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **状压DP**
 
@@ -918,7 +908,7 @@ int main()
 
 #### 输入格式
 
-第一行有 $1$ 个正整数 $n$ $(1 \le n \le 20)$。接下来的 $2n$ 行，每行 $n$ 个数。前 $n$ 行是 $P$，后 $n$ 行是 $Q$。
+第一行有 $1$ 个正整数 $n$ $(1 \le n \le 20)$。接下来的 $2n$ 行，每行 $n$ 个数。前 $n$ 行是 $P$，后 $n$ 行是 $Q$
 
 ## 输出格式
 
@@ -962,7 +952,100 @@ void solve(){
 signed main()...
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
+
+## P2036 [COCI 2008/2009 #2] PERKET
+
+### 题目描述
+
+Perket 是一种流行的美食。为了做好 Perket，厨师必须谨慎选择食材，以在保持传统风味的同时尽可能获得最全面的味道。你有 $n$ 种可支配的配料。对于每一种配料，我们知道它们各自的酸度 $s$ 和苦度 $b$。当我们添加配料时，总的酸度为每一种配料的酸度总乘积；总的苦度为每一种配料的苦度的总和。
+
+众所周知，美食应该做到口感适中，所以我们希望选取配料，以使得酸度和苦度的绝对差最小。
+
+另外，我们必须添加至少一种配料，因为没有任何食物是只以水为配料的。
+
+### 输入格式
+
+第一行一个整数 $n$，表示可供选用的食材种类数。
+
+接下来 $n$ 行，每行 $2$ 个整数 $s_i$ 和 $b_i$，表示第 $i$ 种食材的酸度和苦度。
+
+### 输出格式
+
+一行一个整数，表示可能的总酸度和总苦度的最小绝对差。
+
+
+#### *状压写法*
+```cpp
+#include<bits/stdc++.h>
+#define endl '\n'
+using namespace std;
+int dp[(1<<15)+5];
+struct food{
+	int suan;
+	int ku;
+}foods[15];
+int minn=0x3f3f3f3f;
+void solve(){
+	int n;
+	cin>>n;
+	for(int i=0;i<n;i++){
+		cin>>foods[i].suan>>foods[i].ku;
+	}
+	for(int i=1;i<(1<<n);i++){
+		int s=1,b=0;
+		for(int j=0;j<n;j++){
+			if(1 &(i>>j)){
+				s*=foods[j].suan;
+				b+=foods[j].ku;
+			}
+		}
+		minn=min(minn,abs(s-b));
+	}
+	cout<<minn<<endl;
+}
+int main(){
+	ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);
+	int _=1;
+	//cin>>_;
+	while(_--){
+		solve();
+	}
+	return 0;
+}
+```
+#### *dfs写法*
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+int n,ming=1<<30,pl[15];
+struct a{
+    int suan;
+    int ku;
+}as[15];
+void dfs(int k,int x,int y){
+    if(k>n){
+        if(y==0)
+            return ;
+        ming=min(abs(x-y),ming);
+        return;
+    }
+    dfs(k+1,x,y);
+    dfs(k+1,x*as[k].suan,y+as[k].ku);
+    return ;
+}
+int main(){
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        cin>>as[i].suan>>as[i].ku;
+    }
+    dfs(1,1,0);
+    cout<<ming;
+    return 0;
+}
+```
+
 
 ## **高精度+**
 ```cpp
@@ -974,15 +1057,15 @@ using namespace std;
 vector<int> add(vector<int> &A,vector<int> &B)  
 {  
     vector<int> C;  
-    int t=0; _//t__是进位  
+    int t=0; //t是进位  
     for(int i=0;i<A.size() || i<B.size();i++)  
     {  
         if(i<A.size()) t+=A[i];  
         if(i<B.size()) t+=B[i];  
         C.push_back(t%10);  
-        t/=10;   _//t__若>=10，t/=10，t变为1，表明要进位，t若<10，表明不需进位，t变为0  
+        t/=10;   //t若>=10，t/=10，t变为1，表明要进位，t若<10，表明不需进位，t变为0  
     }   
-    if(t) C.push_back(1);  _//__如果最高位还有进位，在数组最后补1即可  
+    if(t) C.push_back(1);  //如果最高位还有进位，在数组最后补1即可  
     return C;  
 }  
   
@@ -1002,7 +1085,7 @@ int main()
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **高精度-**
 
@@ -1011,7 +1094,8 @@ int main()
 #include<vector>  
   
 using namespace std;  
-//__判断是否有A>=B_ bool cmp(vector<int> &A,vector<int> &B)  
+//判断是否有A>=B
+bool cmp(vector<int> &A,vector<int> &B)  
 {  
     if(A.size()!=B.size()) return A.size()>B.size();  
     for(int i=A.size()-1;i>=0;i--)  
@@ -1020,18 +1104,20 @@ using namespace std;
     return true;         
 }  
 //C=A-B  
-vector<int> sub(vector<int> &A,vector<int> &B) _//__这里的A一定是需要大于等于B的才可以  
+vector<int> sub(vector<int> &A,vector<int> &B) //这里的A一定是需要大于等于B的才可以  
 {  
     vector<int> C;  
     for(int i=0,t=0;i<A.size();i++)  
     {  
         t=A[i]-t;  
         if(i<B.size()) t-=B[i];  
-        C.push_back((t+10)%10);_//__若t<0，借位加10，若>=0，加10再余10还是t  
-        if(t<0) t=1; _//__借位_         else t=0;           
+        C.push_back((t+10)%10);//若t<0，借位加10，若>=0，加10再余10还是t  
+        if(t<0) t=1; //借位       
+        else t=0;           
     }  
     while(C.size()>1 && C.back()==0) C.pop_back();  
-    //__去多余的0，例如125-123=2，防止输出002_     return C;  
+    //去多余的0，例如125-123=2，防止输出002    
+    return C;  
 }  
   
 int main()  
@@ -1048,7 +1134,7 @@ int main()
         vector<int> C=sub(A,B);  
         for(int i=C.size()-1;i>=0;i--) cout<<C[i];  
     }  
-    else       //__若A<B时，用B-A再在前面加个负号_     
+    else       //若A<B时，用B-A再在前面加个负号_     
    {  
         vector<int> C=sub(B,A);   
         cout<<"-";  
@@ -1059,7 +1145,7 @@ int main()
 `
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **高精度X**
 ```cpp
@@ -1071,10 +1157,13 @@ using namespace std;
 vector<int> mul(vector<int> &A,int b)  
 {  
     vector<int> C;  
-    int t=0;_//__进位  
+    int t=0;_//进位  
     for(int i=0;i<A.size() || t;i++)  
     {  
-        if(i<A.size()) t+=A[i]*b;_//__将b与A[i]相乘，而不是b的其中一位与A[i]相乘_         C.push_back(t%10);  _//__相乘后只取最后一位的数_         t/=10;      
+        if(i<A.size()) t+=A[i]*b;_//将b与A[i]相乘，而不是b的其中一位与A[i]相乘      
+        C.push_back(t%10);  
+        //相乘后只取最后一位的数_        
+        t/=10;      
     }   
     return C;  
 }  
@@ -1096,16 +1185,16 @@ int main()
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
-
 ## **高精度/**
+
 ```cpp
 #include<iostream>  
 #include<vector>  
 #include<algorithm>  
   
 using namespace std;  
-//A/b,__商是C，余数是r_ vector<int> div(vector<int> &A,int b,int &r)   
+//A/b,商是C，余数是r
+ vector<int> div(vector<int> &A,int b,int &r)   
 {  
     vector<int> C;  
     r=0;  
@@ -1115,8 +1204,10 @@ using namespace std;
         C.push_back(r/b);  
         r%=b;  
     }  
-    reverse(C.begin(),C.end());_//__反转，需头文件#include<algorithm>，例如12345变成54321_     while(C.size()>1 && C.back()==0) C.pop_back();  
-    //__去掉多余的0，比如89/9得到的是9余8，而不是09余8_     return C;  
+    reverse(C.begin(),C.end());//反转，需头文件#include<algorithm>，例如12345变成54321  
+    while(C.size()>1 && C.back()==0) C.pop_back();  
+    //去掉多余的0，比如89/9得到的是9余8，而不是09余8_     
+    return C;  
 }  
   
 int main()  
@@ -1128,7 +1219,8 @@ int main()
     vector<int> A;  
     for(int i=a.size()-1;i>=0;i--) A.push_back(a[i]-'0');//A=[6,5,4,3,2,1]  
       
-    int r;//__余数_     vector<int> C=div(A,b,r);  
+    int r;//余数    
+    vector<int> C=div(A,b,r);  
       
     for(int i=C.size()-1;i>=0;i--) cout<<C[i];  
     cout<<endl<<r<<endl;  
@@ -1136,7 +1228,7 @@ int main()
     return 0;  }   
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **三分**
 
@@ -1158,8 +1250,6 @@ double f(double x)
   }  
     return res;  
 }  
-```
-```cpp
 void solve()  
 {  
     std::cin >> n;  
@@ -1195,7 +1285,7 @@ signed main()
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **字符串哈希（区分不同字符串）**
 给定$N$个字符串（第$i$个字符串长度为$M{\tiny 1}$，字符串内包含数字、大小写字母，大小写敏感），请求出$N$个字符串中共有多少个不同的字符串
@@ -1238,7 +1328,7 @@ void solve()
 signed main()....
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **异或**
 给定$N$个整数$A_{1} ,A_{2},A_{3}....A_{N}$中选出两个进行异或计算，得到的结果最大是多少
@@ -1280,10 +1370,6 @@ int find(int num)
     }  
     return ans;  
 }  
-   
-``` 
-
-```cpp
 void solve()  
 {  
     std::cin >> n;  
@@ -1311,7 +1397,7 @@ signed main()
 } 
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **KMP**
 
@@ -1355,7 +1441,7 @@ void KMP()
 signed main()...
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **求逆元(1~N)**
 
@@ -1390,7 +1476,7 @@ signed main()
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **树的直径**
 
@@ -1425,7 +1511,7 @@ int main()
     return 0;  
 }
 ```
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **树形DP**
 
@@ -1464,7 +1550,7 @@ int main()
     return 0;  
 }
 ```
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **LCA**
 ## **(最近公共祖先)**
@@ -1544,7 +1630,7 @@ void solve()
 int main.......  
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **拓扑排序**
 
@@ -1617,7 +1703,7 @@ signed main()
     return 0;  
 }
 ```
-<div STYLE="page-break-after: always;"></div>
+    
 
 
 ## **强连通分量**
@@ -1726,7 +1812,7 @@ signed main()
     return 0;  
 }
 ```
-<div STYLE="page-break-after: always;"></div>
+    
 
 
 ## **Floyd（全源最短路）**
@@ -1794,7 +1880,7 @@ signed main()
     return 0;  
 }
 ```
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **哈希表**
 
@@ -1824,7 +1910,7 @@ struct hash_map {  //_ _哈希表模板
     }  
 };
 ```
-<div STYLE="page-break-after: always;"></div>
+    
 
 ## **字符串哈希**
 **(单模)**
@@ -1848,7 +1934,7 @@ bool cmp(const string& s, const string& t) {
 }
 
 ```
-<div STYLE="page-break-after: always;"></div>
+    
 
 **(双模)**
 ```cpp
@@ -1877,9 +1963,9 @@ bool cmp(const std::string s, const std::string t) {
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
+    
 
-# **数据结构STL特殊库函数**
+# **数据结构 STL 特殊库函数**
 
 ## **优先队列**
 
@@ -2035,7 +2121,7 @@ rend(),返回的值和rbegin()相同
 
 `map最基本的构造函数 map<关键字，键值> mapint`
 
-<div STYLE="page-break-after: always;"></div>
+    
 
 **插入数据:**
 
@@ -2078,7 +2164,7 @@ rend(),返回的值和rbegin()相同
 
        }
 ```
-<div STYLE="page-break-after: always;"></div>
+    
 
 **检查键是否存在:**
 
