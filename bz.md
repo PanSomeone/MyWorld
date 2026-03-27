@@ -1,8 +1,6 @@
 <div STYLE="page-break-after: always;"></div>
 
-# **模板**
-
-## **空白开头**
+# **空白开头**
 
 ```cpp
 #include<bits/stdc++.h>
@@ -21,6 +19,7 @@ int main(){
    return 0;  
 }
 ```
+# **基础算法**
 
 ## **优先队列（堆）**
 
@@ -70,6 +69,7 @@ int main(){
         return 0;  
     }
 ```
+
 
 ## **并查集**
 
@@ -125,73 +125,6 @@ int main(){
 }
 ```
 
-## **最小生成树模板**
-
-**P3366 【模板】最小生成树**
-
-**题目描述**
-
-如题，给出一个无向图，求出最小生成树，如果该图不连通，则输出 `orz`。
-
-**输入格式**
-
-第一行包含两个整数 $N,M$，表示该图共有 $N$ 个结点和 $M$ 条无向边。
-
-接下来 $M$ 行每行包含三个整数 $X_i,Y_i,Z_i$，表示有一条长度为 $Z_i$ 的无向边连接结点 $X_i,Y_i$。
-
-**输出格式**
-
-如果该图连通，则输出一个整数表示最小生成树的各边的长度之和。如果该图不连通则输出 `orz`。
-
-```cpp
-#include<bits/stdc++.h>  
-using namespace std;  
-#define ll long long   
-int n,m,x,y,z,cnt;  
-ll ans;  
-const int M=2e5+10;  
-struct edge{  
-    int start,to;  
-    ll val;  
-}edges[M];  
-int f[M];  
-int find(int x){  
-    if(f[x]==x) return x;  
-    else{  
-        f[x]=find(f[x]);  
-        return f[x];  
-    }  
-}  
-bool cmp(edge a,edge b){return a.val<b.val;}  
-void kruskal(){  
-    for(int i=1;i<=m;i++){  
-        int u=find(edges[i].start);  
-        int v=find(edges[i].to);  
-        if(u==v) continue;  
-        ans+=edges[i].val;  
-        f[u]=v;  
-        cnt++;  
-        if(cnt==n-1) break;  
-    }  
-}
-
-int main(){  
-    ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);  
-    cin>>n>>m;  
-    for(int i=1;i<=n;i++) f[i]=i;  
-    for(int i=1;i<=m;i++){  
-        cin>>edges[i].start>>edges[i].to>>edges[i].val;  
-    }  
-    sort(edges+1,edges+1+m,cmp);  
-    kruskal();  
-    if(find(1)!=find(n)){  
-        cout<<"orz";  
-        return 0;  
-    }  
-    cout<<ans;  
-    return 0;  
-}
-```
 
 ## **快速幂模板**
 
@@ -231,49 +164,6 @@ signed main(){
 }
 ```
 
-## **采药dp**
-
-**P1048 [NOIP 2005 普及组] 采药**
-
-**题目描述**
-
-辰辰是个天资聪颖的孩子，他的梦想是成为世界上最伟大的医师。为此，他想拜附近最有威望的医师为师。医师为了判断他的资质，给他出了一个难题。医师把他带到一个到处都是草药的山洞里对他说：“孩子，这个山洞里有一些不同的草药，采每一株都需要一些时间，每一株也有它自身的价值。我会给你一段时间，在这段时间里，你可以采到一些草药。如果你是一个聪明的孩子，你应该可以让采到的草药的总价值最大。”
-
-如果你是辰辰，你能完成这个任务吗？
-
-**输入格式**
-
-第一行有 $2$ 个整数 $T$（$1 \le T \le 1000$）和 $M$（$1 \le  M \le 100$），用一个空格隔开，$T$ 代表总共能够用来采药的时间，$M$ 代表山洞里的草药的数目。
-
-接下来的 $M$ 行每行包括两个在 $1$ 到 $100$ 之间（包括 $1$ 和 $100$）的整数，分别表示采摘某株草药的时间和这株草药的价值。
-
-**输出格式**
-
-输出在规定的时间内可以采到的草药的最大总价值。
-
-```cpp
-#include<bits/stdc++.h>  
-using namespace std;  
-const int M=105;  
-int ti[M],v[M];  
-int dp[10005][10005];  
-int main(){  
-    ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);  
-    int t,m;  
-    cin>>t>>m;  
-    for(int i=1;i<=m;i++){  
-        cin>>ti[i]>>v[i];  
-    }  
-    for(int i=1;i<=m;i++){  
-        for(int j=1;j<=t;j++){  
-            if(j<ti[i]) dp[i][j]=dp[i-1][j];  
-            else dp[i][j]=max(dp[i-1][j],dp[i-1][j-ti[i]]+v[i]);  
-        }  
-    }  
-    cout<<dp[m][t]<<endl;  
-    return 0;  
-}
-```
 
 ## **多线程**
 
@@ -393,27 +283,6 @@ int main(){
 }
 ```
 
-## **最大公约数 & 最小公倍数**
-
-输入两个正整数 _x_0,_y_0，求出满足下列条件的 _P_,_Q_ 的个数：_P_,_Q_ 是正整数
-要求 _P_,_Q_ 以 _x_0 为最大公约数，以 _y_0 为最小公倍数。
-试求：满足条件的所有可能的 _P_,_Q_ 的个数。
-
-```cpp
-#include<bits/stdc++.h>  
-using namespace std;  
-int main(){  
-    ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);  
-    int a,b,cnt=0;  
-    cin>>a>>b;  
-    for(int i=a;i<=b;i++){  
-        int j=a*b/i;  
-        if(gcd(i,j)==a&&(i*j)/gcd(i,j)==b) cnt++;  
-    }  
-    cout<<cnt<<endl;  
-    return 0;  
-}
-```
 
 ## **合并果子（堆）**
 
@@ -465,6 +334,7 @@ int main(){
     return 0;  
 }
 ```
+
 
 ## **全排列**
 
@@ -588,6 +458,7 @@ int main(){
 ## **二分**
 
 ```cpp
+//二分的一般写法
 #include<bits/stdc++.h>  
 using namespace std;  
 const int M=1e6+10;  
@@ -616,56 +487,49 @@ int main(){
     return 0;  
   
 }
-```
 
-## **线性筛素数**
+//利用STL的二分函数lower_bound和upper_bound实现
+#include <iostream>
 
-**P3383 【模板】线性筛素数**
+#include <algorithm>
 
-**题目描述**
+using namespace std;
 
-如题，给定一个范围 $n$，有 $q$ 个询问，每次输出第 $k$ 小的素数。
+int a[8] = {1, 2, 4, 4, 5, 8, 10, 22};
 
-**输入格式**
+int main(){
 
-第一行包含两个正整数 $n,q$，分别表示查询的范围和查询的个数。
+    auto x = lower_bound(a, a + 8, 4) ;//>=
 
-接下来 $q$ 行每行一个正整数 $k$，表示查询第 $k$ 小的素数。
+auto y = upper_bound(a, a + 8, 4) ;//>
 
-**输出格式**
+//获得的是数字的指针
 
-输出 $q$ 行，每行一个正整数表示答案。
+//加*即可获得数字本身
 
-```cpp
-#include<bits/stdc++.h>  
-using namespace std;  
-const long int M=1e8+10,N=6e6+10;  
-bool isP[M];  
-int P[N],cnt,n,q;  
-void check(int n){  
-    memset(isP,1,sizeof(isP));  
-    isP[1]=0;  
-    for(int i=2;i<=n;i++){  
-        if(isP[i])  
-            P[++cnt]=i;  
-        for(int j=1;j<=cnt&&i*P[j]<=n;j++){  
-            isP[i*P[j]]=0;  
-            if(i%P[j]==0) break;  
-        }  
-    }  
-}  
-signed main(){  
-    ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);  
-    cin>>n>>q;  
-    check(n);  
-    while(q--){  
-        int x;  
-        cin>>x;  
-        cout<<P[x]<<endl;  
-    }  
-    return 0;  
+    bool z = binary_search(a, a + 8, 4);//查找
+
+    cout<<*x<<" "<<*y<<" "<<z<<endl;
+
+    x = lower_bound(a, a + 8, 7) - a;//>=
+
+y = upper_bound(a, a + 8, 7) - a;//>
+
+//获得下标
+
+    z = binary_search(a, a + 8, 7);//查找
+
+    cout<<x<<" "<<y<<" "<<z<<endl;
+
+    return 0;
+
 }
+
+注：若减去数列则可以获得下标，否则得到数字;
+
+若找不到，则返回end，即数组/容器最后一个元素的下一个元素
 ```
+
 
 ## **查找文献（dfs）**
 
@@ -736,58 +600,6 @@ int main(){
 }        
 ```
 
-## **运算符重载**
-
-```cpp
-Point operator+(const Point &a,const Point &b)
-{//__类外重载,运算符重载函数作为类的友元函数_ 
-Point ret; ret.x = a.x + b.x; ret.y = a.y + b.y; return ret; 
-}
-```
-
-## **快读快写模板**
-
-```cpp
-#include<bits/stdc++.h>
-using namespace std;
-inline int read(){
-    int x=0,f=1;
-    char ch=getchar();
-    while(ch<'0'||ch>'9'){
-        if(ch=='-')
-            f=-1;
-        ch=getchar();
-    }
-    while(ch>='0'&&ch<='9'){
-        x=(x<<1)+(x<<3)+(ch^48);
-        ch=getchar();
-    }
-    return x*f;
-}
-inline void write(int x)
-{
-    if(x<0){
-    	putchar('-');
-		x=-x;
-	}
-    if(x>9) 
-		write(x/10);
-    putchar(x%10+'0');
-}
-
-int main(){
-	int n;
-	n=read();
-	for(int i=1;i<=n;i++){
-		int a;
-		a=read();
-		write(a);
-		putchar(' ');
-	}
-	return 0;
-} 
-
-```
 
 ## **前缀和函数**
 
@@ -905,74 +717,361 @@ int main() {
 }
 ```
 
-## **最短路径算法（迪杰斯特拉）**
+## **运算符重载**
 
 ```cpp
-struct Edge  
+Point operator+(const Point &a,const Point &b)
+{//__类外重载,运算符重载函数作为类的友元函数_ 
+Point ret; ret.x = a.x + b.x; ret.y = a.y + b.y; return ret; 
+}
+```
+
+## **快读快写模板**
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+inline int read(){
+    int x=0,f=1;
+    char ch=getchar();
+    while(ch<'0'||ch>'9'){
+        if(ch=='-')
+            f=-1;
+        ch=getchar();
+    }
+    while(ch>='0'&&ch<='9'){
+        x=(x<<1)+(x<<3)+(ch^48);
+        ch=getchar();
+    }
+    return x*f;
+}
+inline void write(int x)
+{
+    if(x<0){
+    	putchar('-');
+		x=-x;
+	}
+    if(x>9) 
+		write(x/10);
+    putchar(x%10+'0');
+}
+
+int main(){
+	int n;
+	n=read();
+	for(int i=1;i<=n;i++){
+		int a;
+		a=read();
+		write(a);
+		putchar(' ');
+	}
+	return 0;
+} 
+
+```
+
+## **三分**
+
+给定n个二次函数 $f{\tiny 1} (x),f{\tiny 2} (x),f{\tiny 3} (x)....f{\tiny n}(x) $ , （均形如$ax^{2}+bx+c$），设$F(x)=max\{ {f{\tiny 1} (x),f{\tiny 2} (x),f{\tiny 3} (x)....f{\tiny n}(x)} \} $
+，求$F(x)$在区间$[0,1000]$上的最小值。
+
+```cpp
+#include <bits/stdc++.h>  
+constexpr int N = 1e4 + 10;  
+constexpr double eps = 1e-10;  
+int n;  
+double a[N], b[N], c[N];  
+double f(double x)  
 {  
-    ll v,w,next;
-
-//v:目的地,w:距离,next:下一个节点  
-}G[N];  
-ll head[N],cnt,n,m,s;  
-ll dis[N];//存距离  
-inline void addedge(ll u,ll v,ll w)
-
-//链式前向星存图  
-{ 
-    cnt++;  
-    G[cnt].w=w;  
-    G[cnt].v=v;  
-    G[cnt].next=head[u];  
-    head[u]=cnt;  
+  double res = -1e9;  
+  for (int i = 1; i <= n; i++)  
+  {  
+  res=std::max(res,a[i]*x*x+b[i]*x+c[i]);  
+  }  
+    return res;  
 }  
-struct node  
+void solve()  
 {  
-    ll d,u;_//d是距离u是起点  
-    bool operator<(const node& t)const
-
-//重载运算符  
+    std::cin >> n;  
+    for (int i = 1; i <= n; i++)  
     {  
-        return d>t.d;  
+        std::cin >> a[i] >> b[i] >> c[i];  
     }  
-};  
-inline void Dijkstra()  
-{  
-    for(register int i=1;i<=n;++i)dis[i]=mod;//初始化  
-    dis[s]=0;  
-    priority_queue<node>q;//堆优化  
-    q.push((node){0,s});//起点push进去  
-    while(!q.empty())  
+    double l = 0, r = 1000;  
+    while (r - l > eps)  
     {  
-        node tmp=q.top();q.pop();  
-        ll u=tmp.u,d=tmp.d;  
-        if(d!=dis[u])continue;
-
-//松弛操作剪枝  
-        for(register int i=head[u];i;i=G[i].next)//链式前向星  
+        double mid1 = (2 * l + r) / 3;  
+        double mid2 = (l + 2 * r) / 3;  
+        if (f(mid1) > f(mid2))  
         {  
-            ll v=G[i].v,w=G[i].w;  
-            if(dis[u]+w<dis[v])//符合条件就更新  
-            {  
-                dis[v]=dis[u]+w;  
-                q.push((node){dis[v],v});//沿着边往下走  
-            }  
+            l = mid1;  
+        }  
+        else  
+        {  
+            r = mid2;  
         }  
     }  
+    std::cout << std::fixed << std::setprecision(4) << f(l) << '\n';  
 }  
-int main()  
+signed main()  
 {  
-    scanf("%lld %lld %lld",&n,&m,&s);  
-    for(register int i=1;i<=m;++i)  
+    std::ios::sync_with_stdio(0);  
+    std::cin.tie(0);  
+     int _;  
+    std::cin >> _;  
+    while (_--)  
+        solve();  
+    return 0;  
+}
+```
+
+## **字符串哈希（区分不同字符串）**
+
+给定$N$个字符串（第$i$个字符串长度为$M{\tiny 1}$，字符串内包含数字、大小写字母，大小写敏感），请求出$N$个字符串中共有多少个不同的字符串
+
+```cpp
+#include <bits/stdc++.h>  
+constexpr int N = 2e3 + 10;  
+constexpr int maxn = 1e4 + 10;  
+constexpr int mod = 1e9 + 7;  
+char s[N];  
+int a[maxn];  
+void hashchar(int ind)  
+{ _//_ _对第_ _ind_ _个字符串进行字符串哈希  
+    int base = 130;  
+    int ans = 0;  
+    for (int i = 0; s[i];i++)  
     {  
-        ll x,y,z;  
-        scanf("%lld %lld %lld",&x,&y,&z);  
-        addedge(x,y,z);//建图  
+        ans = (ans + s[i]) * base;  
+        ans %= mod;  
     }  
-    Dijkstra();  
-    for(register int i=1;i<=n;++i)  
-        printf("%lld ",dis[i]);  
-    printf("\n");  
+    a[ind] = ans;  
+}  
+void solve()  
+{  
+    int n;  
+    std::cin >> n;  
+    for (int i = 1; i <= n; i++)  
+    {  
+        std::cin >> s;  
+        hashchar(i);  
+    }  
+    std::sort(a + 1, a + n + 1);  
+    int cnt = 0;  
+    for (int i = 1; i <= n;i++)  
+    {  
+        cnt += (a[i] != a[i - 1]);  
+    }  
+    std::cout << cnt << std::endl;  
+}  
+signed main()....
+```
+
+## **KMP**
+
+```cpp
+#include <bits/stdc++.h>  
+constexpr int N = 1e6 + 10;  
+std::string S, P; //_ _分别表示主串与模式串（在主串中寻找模式串）  
+int n, m; _//_ _分别表示模式串与主串的长度  
+int ne[N];  
+void init()  
+{  
+    std::cin >> S >> P;  
+    S = " " + S, P = " " + P;  
+    n = P.length() - 1;  
+    ne[1] = 0;  
+    for (int i = 2, j = 0; i <= n; i++)  
+    {  
+        while (j && P[i] != P[j + 1])  
+            j = ne[j];  
+        if (P[i] == P[j + 1])  
+            j++;  
+        ne[i] = j;  
+    }  
+}  
+void KMP()  
+{  
+    m = S.length() - 1;  
+    for (int i = 1, j = 0; i <= m; i++)  
+    {  
+        while (j && S[i] != P[j + 1])  
+            j = ne[j];  
+        if (S[i] == P[j + 1])  
+            j++;  
+        if (j == n)  
+            std::cout << i - n + 1 << '\n';  
+    }  
+    for (int i = 1; i <= n; i++)  
+        std::cout << ne[i] << " ";  
+    std::cout << '\n';  
+}  
+signed main()...
+```
+
+## **Int_128**
+
+```cpp
+#include <bits/stdc++.h>  
+
+using i128 = __int128_t;  
+std::ostream &operator<<(std::ostream &os, __uint128_t n)  
+{  
+    if (n > 9)  os << n / 10;  
+    os << (int)(n % 10);  
+    return os;  
+}  
+std::ostream &operator<<(std::ostream &os, __int128_t n)  
+{  
+    if (n < 0)  
+    {  
+        os << '-';  
+        n = -n;  
+    }  
+    return os << (__uint128_t)n;  
+}  
+void solve()  
+{  
+    i128 a = 123456789;  
+    std::cout << a * a * a << '\n';  
+}  
+signed main()  
+{  
+    std::ios::sync_with_stdio(0);  
+    std::cin.tie(0);  
+    int _ = 1;  
+//_ _std::cin_ _>>_ __;  
+    while (_--)  
+    solve();  
+    return 0;  
+}
+```
+
+## **哈希表**
+
+```cpp
+struct hash_map {  //_ _哈希表模板  
+        struct data {  
+        long long u;  
+        int v, nex;  
+    };  //_ _前向星结构  
+        data e[SZ << 1];  //_ _SZ_ _是_ _const_ _int_ _表示大小  
+    int h[SZ], cnt;  
+      
+    int hash(long long u) { return (u % SZ + SZ) % SZ; }  
+      
+    //_ _这里使用_ _(u_ _%_ _SZ_ _+_ _SZ)_ _%_ _SZ_ _而非_ _u_ _%_ _SZ_ _的原因是  
+    //_ _C++_ _中的_ _%_ _运算无法将负数转为正数  
+        int& operator[](long long u) {  
+        int hu = hash(u);  //_ _获取头指针  
+        for (int i = h[hu]; i; i = e[i].nex)  
+           if (e[i].u == u) return e[i].v;  
+        return e[++cnt] = data{u, -1, h[hu]}, h[hu] = cnt, e[cnt].v;  
+    }  
+      
+    hash_map() {  
+        cnt = 0;  
+        memset(h, 0, sizeof(h));  
+    }  
+};
+```
+
+## **字符串哈希**
+
+**(单模)**
+
+```cpp
+using std::string;  
+constexpr int M = 1e9 + 7;  
+constexpr int B = 233;    
+  
+using ll = long long;  
+  
+int get_hash(const string& s) {  
+    int res = 0;  
+    for (int i = 0; i < s.size(); ++i) {  
+        res = ((ll)res * B + s[i]) % M;  
+    }  
+    return res;  
+}  
+  
+bool cmp(const string& s, const string& t) {  
+    return get_hash(s) == get_hash(t);  
+}
+
+```
+
+**(双模)**
+
+```cpp
+using ull = unsigned long long;  
+ull base = 131;  
+ull mod1 = 212370440130137957, mod2 = 1e9 + 7;  
+  
+ull get_hash1(std::string s) {  
+    int len = s.size();  
+    ull ans = 0;  
+    for (int i = 0; i < len; i++) ans = (ans * base + (ull)s[i]) % mod1;  
+    return ans;  
+}  
+  
+ull get_hash2(std::string s) {  
+    int len = s.size();  
+    ull ans = 0;  
+    for (int i = 0; i < len; i++) ans = (ans * base + (ull)s[i]) % mod2;  
+    return ans;  
+}  
+  
+bool cmp(const std::string s, const std::string t) {  
+    bool f1 = get_hash1(s) != get_hash1(t);  
+    bool f2 = get_hash2(s) != get_hash2(t);  
+    return f1 || f2;  
+}
+```
+
+
+# **DP**
+
+## **采药dp**
+
+**P1048 [NOIP 2005 普及组] 采药**
+
+**题目描述**
+
+辰辰是个天资聪颖的孩子，他的梦想是成为世界上最伟大的医师。为此，他想拜附近最有威望的医师为师。医师为了判断他的资质，给他出了一个难题。医师把他带到一个到处都是草药的山洞里对他说：“孩子，这个山洞里有一些不同的草药，采每一株都需要一些时间，每一株也有它自身的价值。我会给你一段时间，在这段时间里，你可以采到一些草药。如果你是一个聪明的孩子，你应该可以让采到的草药的总价值最大。”
+
+如果你是辰辰，你能完成这个任务吗？
+
+**输入格式**
+
+第一行有 $2$ 个整数 $T$（$1 \le T \le 1000$）和 $M$（$1 \le  M \le 100$），用一个空格隔开，$T$ 代表总共能够用来采药的时间，$M$ 代表山洞里的草药的数目。
+
+接下来的 $M$ 行每行包括两个在 $1$ 到 $100$ 之间（包括 $1$ 和 $100$）的整数，分别表示采摘某株草药的时间和这株草药的价值。
+
+**输出格式**
+
+输出在规定的时间内可以采到的草药的最大总价值。
+
+```cpp
+#include<bits/stdc++.h>  
+using namespace std;  
+const int M=105;  
+int ti[M],v[M];  
+int dp[10005][10005];  
+int main(){  
+    ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);  
+    int t,m;  
+    cin>>t>>m;  
+    for(int i=1;i<=m;i++){  
+        cin>>ti[i]>>v[i];  
+    }  
+    for(int i=1;i<=m;i++){  
+        for(int j=1;j<=t;j++){  
+            if(j<ti[i]) dp[i][j]=dp[i-1][j];  
+            else dp[i][j]=max(dp[i-1][j],dp[i-1][j-ti[i]]+v[i]);  
+        }  
+    }  
+    cout<<dp[m][t]<<endl;  
     return 0;  
 }
 ```
@@ -1034,6 +1133,7 @@ void solve(){
 }  
 signed main()...
 ```
+
 
 **P2036 [COCI 2008/2009 #2] PERKET**
 
@@ -1127,6 +1227,84 @@ int main(){
     return 0;
 }
 ```
+
+# **数学算法（含高精度）**
+
+## **最大公约数 & 最小公倍数**
+
+输入两个正整数 _x_0,_y_0，求出满足下列条件的 _P_,_Q_ 的个数：_P_,_Q_ 是正整数
+要求 _P_,_Q_ 以 _x_0 为最大公约数，以 _y_0 为最小公倍数。
+试求：满足条件的所有可能的 _P_,_Q_ 的个数。
+
+```cpp
+#include<bits/stdc++.h>  
+using namespace std;  
+int main(){  
+    ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);  
+    int a,b,cnt=0;  
+    cin>>a>>b;  
+    for(int i=a;i<=b;i++){  
+        int j=a*b/i;  
+        if(gcd(i,j)==a&&(i*j)/gcd(i,j)==b) cnt++;  
+    }  
+    cout<<cnt<<endl;  
+    return 0;  
+}
+```
+
+
+
+
+
+## **线性筛素数**
+
+**P3383 【模板】线性筛素数**
+
+**题目描述**
+
+如题，给定一个范围 $n$，有 $q$ 个询问，每次输出第 $k$ 小的素数。
+
+**输入格式**
+
+第一行包含两个正整数 $n,q$，分别表示查询的范围和查询的个数。
+
+接下来 $q$ 行每行一个正整数 $k$，表示查询第 $k$ 小的素数。
+
+**输出格式**
+
+输出 $q$ 行，每行一个正整数表示答案。
+
+```cpp
+#include<bits/stdc++.h>  
+using namespace std;  
+const long int M=1e8+10,N=6e6+10;  
+bool isP[M];  
+int P[N],cnt,n,q;  
+void check(int n){  
+    memset(isP,1,sizeof(isP));  
+    isP[1]=0;  
+    for(int i=2;i<=n;i++){  
+        if(isP[i])  
+            P[++cnt]=i;  
+        for(int j=1;j<=cnt&&i*P[j]<=n;j++){  
+            isP[i*P[j]]=0;  
+            if(i%P[j]==0) break;  
+        }  
+    }  
+}  
+signed main(){  
+    ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);  
+    cin>>n>>q;  
+    check(n);  
+    while(q--){  
+        int x;  
+        cin>>x;  
+        cout<<P[x]<<endl;  
+    }  
+    return 0;  
+}
+```
+
 
 ## **高精度+**
 
@@ -1307,103 +1485,6 @@ int main()
     return 0;  }   
 ```
 
-## **三分**
-
-给定n个二次函数 $f{\tiny 1} (x),f{\tiny 2} (x),f{\tiny 3} (x)....f{\tiny n}(x) $ , （均形如$ax^{2}+bx+c$），设$F(x)=max\{ {f{\tiny 1} (x),f{\tiny 2} (x),f{\tiny 3} (x)....f{\tiny n}(x)} \} $
-，求$F(x)$在区间$[0,1000]$上的最小值。
-
-```cpp
-#include <bits/stdc++.h>  
-constexpr int N = 1e4 + 10;  
-constexpr double eps = 1e-10;  
-int n;  
-double a[N], b[N], c[N];  
-double f(double x)  
-{  
-  double res = -1e9;  
-  for (int i = 1; i <= n; i++)  
-  {  
-  res=std::max(res,a[i]*x*x+b[i]*x+c[i]);  
-  }  
-    return res;  
-}  
-void solve()  
-{  
-    std::cin >> n;  
-    for (int i = 1; i <= n; i++)  
-    {  
-        std::cin >> a[i] >> b[i] >> c[i];  
-    }  
-    double l = 0, r = 1000;  
-    while (r - l > eps)  
-    {  
-        double mid1 = (2 * l + r) / 3;  
-        double mid2 = (l + 2 * r) / 3;  
-        if (f(mid1) > f(mid2))  
-        {  
-            l = mid1;  
-        }  
-        else  
-        {  
-            r = mid2;  
-        }  
-    }  
-    std::cout << std::fixed << std::setprecision(4) << f(l) << '\n';  
-}  
-signed main()  
-{  
-    std::ios::sync_with_stdio(0);  
-    std::cin.tie(0);  
-     int _;  
-    std::cin >> _;  
-    while (_--)  
-        solve();  
-    return 0;  
-}
-```
-
-## **字符串哈希（区分不同字符串）**
-
-给定$N$个字符串（第$i$个字符串长度为$M{\tiny 1}$，字符串内包含数字、大小写字母，大小写敏感），请求出$N$个字符串中共有多少个不同的字符串
-
-```cpp
-#include <bits/stdc++.h>  
-constexpr int N = 2e3 + 10;  
-constexpr int maxn = 1e4 + 10;  
-constexpr int mod = 1e9 + 7;  
-char s[N];  
-int a[maxn];  
-void hashchar(int ind)  
-{ _//_ _对第_ _ind_ _个字符串进行字符串哈希  
-    int base = 130;  
-    int ans = 0;  
-    for (int i = 0; s[i];i++)  
-    {  
-        ans = (ans + s[i]) * base;  
-        ans %= mod;  
-    }  
-    a[ind] = ans;  
-}  
-void solve()  
-{  
-    int n;  
-    std::cin >> n;  
-    for (int i = 1; i <= n; i++)  
-    {  
-        std::cin >> s;  
-        hashchar(i);  
-    }  
-    std::sort(a + 1, a + n + 1);  
-    int cnt = 0;  
-    for (int i = 1; i <= n;i++)  
-    {  
-        cnt += (a[i] != a[i - 1]);  
-    }  
-    std::cout << cnt << std::endl;  
-}  
-signed main()....
-```
-
 ## **异或**
 
 给定$N$个整数$A_{1} ,A_{2},A_{3}....A_{N}$中选出两个进行异或计算，得到的结果最大是多少
@@ -1472,48 +1553,6 @@ signed main()
 } 
 ```
 
-## **KMP**
-
-```cpp
-#include <bits/stdc++.h>  
-constexpr int N = 1e6 + 10;  
-std::string S, P; //_ _分别表示主串与模式串（在主串中寻找模式串）  
-int n, m; _//_ _分别表示模式串与主串的长度  
-int ne[N];  
-void init()  
-{  
-    std::cin >> S >> P;  
-    S = " " + S, P = " " + P;  
-    n = P.length() - 1;  
-    ne[1] = 0;  
-    for (int i = 2, j = 0; i <= n; i++)  
-    {  
-        while (j && P[i] != P[j + 1])  
-            j = ne[j];  
-        if (P[i] == P[j + 1])  
-            j++;  
-        ne[i] = j;  
-    }  
-}  
-void KMP()  
-{  
-    m = S.length() - 1;  
-    for (int i = 1, j = 0; i <= m; i++)  
-    {  
-        while (j && S[i] != P[j + 1])  
-            j = ne[j];  
-        if (S[i] == P[j + 1])  
-            j++;  
-        if (j == n)  
-            std::cout << i - n + 1 << '\n';  
-    }  
-    for (int i = 1; i <= n; i++)  
-        std::cout << ne[i] << " ";  
-    std::cout << '\n';  
-}  
-signed main()...
-```
-
 ## **求逆元(1~N)**
 
 ```cpp
@@ -1546,6 +1585,207 @@ signed main()
     return 0;  
 }
 ```
+
+## **差分数组**
+
+**当你将原始数组中元素同时加上或者减掉某个数，那么他们的差分数组其实是不会变化的。**
+
+# **图论**
+
+## **最小生成树模板**
+
+**P3366 【模板】最小生成树**
+
+**题目描述**
+
+如题，给出一个无向图，求出最小生成树，如果该图不连通，则输出 `orz`。
+
+**输入格式**
+
+第一行包含两个整数 $N,M$，表示该图共有 $N$ 个结点和 $M$ 条无向边。
+
+接下来 $M$ 行每行包含三个整数 $X_i,Y_i,Z_i$，表示有一条长度为 $Z_i$ 的无向边连接结点 $X_i,Y_i$。
+
+**输出格式**
+
+如果该图连通，则输出一个整数表示最小生成树的各边的长度之和。如果该图不连通则输出 `orz`。
+
+```cpp
+#include<bits/stdc++.h>  
+using namespace std;  
+#define ll long long   
+int n,m,x,y,z,cnt;  
+ll ans;  
+const int M=2e5+10;  
+struct edge{  
+    int start,to;  
+    ll val;  
+}edges[M];  
+int f[M];  
+int find(int x){  
+    if(f[x]==x) return x;  
+    else{  
+        f[x]=find(f[x]);  
+        return f[x];  
+    }  
+}  
+bool cmp(edge a,edge b){return a.val<b.val;}  
+void kruskal(){  
+    for(int i=1;i<=m;i++){  
+        int u=find(edges[i].start);  
+        int v=find(edges[i].to);  
+        if(u==v) continue;  
+        ans+=edges[i].val;  
+        f[u]=v;  
+        cnt++;  
+        if(cnt==n-1) break;  
+    }  
+}
+
+int main(){  
+    ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);  
+    cin>>n>>m;  
+    for(int i=1;i<=n;i++) f[i]=i;  
+    for(int i=1;i<=m;i++){  
+        cin>>edges[i].start>>edges[i].to>>edges[i].val;  
+    }  
+    sort(edges+1,edges+1+m,cmp);  
+    kruskal();  
+    if(find(1)!=find(n)){  
+        cout<<"orz";  
+        return 0;  
+    }  
+    cout<<ans;  
+    return 0;  
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+## **最短路径算法（迪杰斯特拉）**
+
+```cpp
+struct Edge  
+{  
+    ll v,w,next;
+
+//v:目的地,w:距离,next:下一个节点  
+}G[N];  
+ll head[N],cnt,n,m,s;  
+ll dis[N];//存距离  
+inline void addedge(ll u,ll v,ll w)
+
+//链式前向星存图  
+{ 
+    cnt++;  
+    G[cnt].w=w;  
+    G[cnt].v=v;  
+    G[cnt].next=head[u];  
+    head[u]=cnt;  
+}  
+struct node  
+{  
+    ll d,u;_//d是距离u是起点  
+    bool operator<(const node& t)const
+
+//重载运算符  
+    {  
+        return d>t.d;  
+    }  
+};  
+inline void Dijkstra()  
+{  
+    for(register int i=1;i<=n;++i)dis[i]=mod;//初始化  
+    dis[s]=0;  
+    priority_queue<node>q;//堆优化  
+    q.push((node){0,s});//起点push进去  
+    while(!q.empty())  
+    {  
+        node tmp=q.top();q.pop();  
+        ll u=tmp.u,d=tmp.d;  
+        if(d!=dis[u])continue;
+
+//松弛操作剪枝  
+        for(register int i=head[u];i;i=G[i].next)//链式前向星  
+        {  
+            ll v=G[i].v,w=G[i].w;  
+            if(dis[u]+w<dis[v])//符合条件就更新  
+            {  
+                dis[v]=dis[u]+w;  
+                q.push((node){dis[v],v});//沿着边往下走  
+            }  
+        }  
+    }  
+}  
+int main()  
+{  
+    scanf("%lld %lld %lld",&n,&m,&s);  
+    for(register int i=1;i<=m;++i)  
+    {  
+        ll x,y,z;  
+        scanf("%lld %lld %lld",&x,&y,&z);  
+        addedge(x,y,z);//建图  
+    }  
+    Dijkstra();  
+    for(register int i=1;i<=n;++i)  
+        printf("%lld ",dis[i]);  
+    printf("\n");  
+    return 0;  
+}
+```
+
+## **图的遍历**
+
+**P3916 图的遍历**
+**题目描述**
+给出 $N$ 个点，$M$ 条边的有向图，对于每个点 $v$，令 $A(v)$ 表示从点 $v$ 出发，能到达的编号最大的点。现在请求出 $A(1),A(2),\dots,A(N)$ 的值。
+**输入格式**
+第 $1$ 行 $2$ 个整数 $N,M$，表示点数和边数。
+接下来 $M$ 行，每行 $2$ 个整数 $U_i,V_i$，表示边 $(U_i,V_i)$。点用 $1,2,\dots,N$ 编号。
+**输出格式**
+一行 $N$ 个整数 $A(1),A(2),\dots,A(N)$。
+
+```cpp
+#include <iostream>
+#include <cstdio>
+#include <vector>
+using namespace std;
+
+#define MAXL 100010
+
+int N, M, A[MAXL];
+vector<int> G[MAXL]; //vector存图 
+
+void dfs(int x, int d) {
+	if(A[x]) return; //访问过 
+	A[x] = d;
+	for(int i=0; i<G[x].size(); i++)
+		dfs(G[x][i], d);
+}
+
+int main() {
+	int u, v;
+	scanf("%d%d", &N, &M);
+	for(int i=1; i<=M; i++) {
+		scanf("%d%d", &u, &v);
+		G[v].push_back(u); //反向建边 
+	}
+	for(int i=N; i; i--) dfs(i, i); 
+	for(int i=1; i<=N; i++) printf("%d ", A[i]);
+	printf("\n");
+	return 0;
+}
+
+```
+
 
 ## **树的直径**
 
@@ -1840,43 +2080,7 @@ int main()
 
 ```
 
-## **Int_128**
 
-```cpp
-#include <bits/stdc++.h>  
-
-using i128 = __int128_t;  
-std::ostream &operator<<(std::ostream &os, __uint128_t n)  
-{  
-    if (n > 9)  os << n / 10;  
-    os << (int)(n % 10);  
-    return os;  
-}  
-std::ostream &operator<<(std::ostream &os, __int128_t n)  
-{  
-    if (n < 0)  
-    {  
-        os << '-';  
-        n = -n;  
-    }  
-    return os << (__uint128_t)n;  
-}  
-void solve()  
-{  
-    i128 a = 123456789;  
-    std::cout << a * a * a << '\n';  
-}  
-signed main()  
-{  
-    std::ios::sync_with_stdio(0);  
-    std::cin.tie(0);  
-    int _ = 1;  
-//_ _std::cin_ _>>_ __;  
-    while (_--)  
-    solve();  
-    return 0;  
-}
-```
 
 ## **Floyd（全源最短路）**
 
@@ -1945,139 +2149,11 @@ signed main()
 }
 ```
 
-## **哈希表**
 
-```cpp
-struct hash_map {  //_ _哈希表模板  
-        struct data {  
-        long long u;  
-        int v, nex;  
-    };  //_ _前向星结构  
-        data e[SZ << 1];  //_ _SZ_ _是_ _const_ _int_ _表示大小  
-    int h[SZ], cnt;  
-      
-    int hash(long long u) { return (u % SZ + SZ) % SZ; }  
-      
-    //_ _这里使用_ _(u_ _%_ _SZ_ _+_ _SZ)_ _%_ _SZ_ _而非_ _u_ _%_ _SZ_ _的原因是  
-    //_ _C++_ _中的_ _%_ _运算无法将负数转为正数  
-        int& operator[](long long u) {  
-        int hu = hash(u);  //_ _获取头指针  
-        for (int i = h[hu]; i; i = e[i].nex)  
-           if (e[i].u == u) return e[i].v;  
-        return e[++cnt] = data{u, -1, h[hu]}, h[hu] = cnt, e[cnt].v;  
-    }  
-      
-    hash_map() {  
-        cnt = 0;  
-        memset(h, 0, sizeof(h));  
-    }  
-};
-```
-
-## **字符串哈希**
-
-**(单模)**
-
-```cpp
-using std::string;  
-constexpr int M = 1e9 + 7;  
-constexpr int B = 233;    
-  
-using ll = long long;  
-  
-int get_hash(const string& s) {  
-    int res = 0;  
-    for (int i = 0; i < s.size(); ++i) {  
-        res = ((ll)res * B + s[i]) % M;  
-    }  
-    return res;  
-}  
-  
-bool cmp(const string& s, const string& t) {  
-    return get_hash(s) == get_hash(t);  
-}
-
-```
-
-**(双模)**
-
-```cpp
-using ull = unsigned long long;  
-ull base = 131;  
-ull mod1 = 212370440130137957, mod2 = 1e9 + 7;  
-  
-ull get_hash1(std::string s) {  
-    int len = s.size();  
-    ull ans = 0;  
-    for (int i = 0; i < len; i++) ans = (ans * base + (ull)s[i]) % mod1;  
-    return ans;  
-}  
-  
-ull get_hash2(std::string s) {  
-    int len = s.size();  
-    ull ans = 0;  
-    for (int i = 0; i < len; i++) ans = (ans * base + (ull)s[i]) % mod2;  
-    return ans;  
-}  
-  
-bool cmp(const std::string s, const std::string t) {  
-    bool f1 = get_hash1(s) != get_hash1(t);  
-    bool f2 = get_hash2(s) != get_hash2(t);  
-    return f1 || f2;  
-}
-```
 
 # **数据结构 STL 特殊库函数**
 
-## **优先队列**
-
-**(默认大到小)**
-
-1.    `priority_queue <node> q;`//结构体里重载了‘<’小于符号`
-
-2.    `priority_queue <int,vector<int>,greater<int> > q;`//注意后面两个“>”不要写在一起，“>>”是右移运算符,小到大
-
-3.    `priority_queue <int,vector<int>,less<int> >q;`//大到小
-
-4.    `q.size();`//返回q里元素个数
-
-5.    `q.empty();`//返回q是否为空，空则返回1，否则返回0
-
-6.    `q.push(k);`//在q的末尾插入k
-
-7.    `q.pop();`//删掉q的第一个元素
-
-8     `q.top();`//返回q的第一个元素
-
-## **Set**
-
-insert(元素): 插入一个元素。
-
-erase(元素): 删除一个元素。
-
-find(元素): 查找一个元素。
-
-begin(),返回set容器的第一个元素
-
-end(),返回set容器的最后一个元素
-
-clear(),删除set容器中的所有的元素
-
-empty(),判断set容器是否为空
-
-max_size(),返回set容器可能包含的元素最大个数
-
-size(),返回当前set容器中的元素个数
-
-rbegin,返回的值和end()相同
-
-rend(),返回的值和rbegin()相同
-
-**set的输出不支持访问下标**
-
-  ` for(const auto& person :q){  cout<<person.name<<endl;  }`
-
-## **Queue**
+## **queue**
 
 1.push() 在队尾插入一个元素
 
@@ -2091,138 +2167,102 @@ rend(),返回的值和rbegin()相同
 
 6.back() 返回队列中最后一个元素
 
-## **差分数组**
+## **priority_queue**
 
-**当你将原始数组中元素同时加上或者减掉某个数，那么他们的差分数组其实是不会变化的。**
+**(默认大到小)**
+```cpp
+priority_queue <node> q;//结构体里重载了‘<’小于符号`
+priority_queue <int,vector<int>,greater<int> > q;//注意后面两个“>”不要写在一起，“>>”是右移运算符,小到大
+priority_queue <int,vector<int>,less<int> >q;//大到小
+q.size();//返回q里元素个数
+q.empty();//返回q是否为空，空则返回1，否则返回0
+q.push(k);//在q的末尾插入k
+q.pop();//删掉q的第一个元素
+q.top();//返回q的第一个元素
+```
+## **set**
 
-## **Vector**
+insert(元素): 插入一个元素。
+erase(元素): 删除一个元素。
+find(元素): 查找一个元素。
+begin(),返回set容器的第一个元素
+end(),返回set容器的最后一个元素
+clear(),删除set容器中的所有的元素
+empty(),判断set容器是否为空
+max_size(),返回set容器可能包含的元素最大个数
+size(),返回当前set容器中的元素个数
+rbegin,返回的值和end()相同
+rend(),返回的值和rbegin()相同
+**set的输出不支持访问下标**
+
+  ` for(const auto& person :q){  cout<<person.name<<endl;  }`
+
+
+## **vector**
 
 **(记得开空间)**
+```cpp
+a.assign(b.begin(), b.begin()+3); //b为向量，将b的0~2个元素构成的向量赋给a
+a.assign(4,2); //是a只含4个元素，且每个元素为2
+a.back(); //最后一个元素
+a.front(); //第一个元素
+a[i]; //返回a的第i个元素，当且仅当a[i]存在
+a.clear(); //清空
+a.empty(); //判断a是否为空，空则返回ture,不空则返回false
+a.pop_back(); //删除a向量的最后一个元素
+a.erase(a.begin()+1,a.begin()+3); //删除a中第1个（从第0个算起）到第2个元素，也就是说删除的元素从a.begin()+1算起（包括它）一直到a.begin()+3（不包括它）
+a.push_back(5);
+a.insert(a.begin()+1,5); //在a的第1个元素（从第0个算起）的位置插入数值5，如a为1,2,3,4，插入元素后为1,5,2,3,4
+a.insert(a.begin()+1,3,5); //在a的第1个元素（从第0个算起）的位置插入3个数，其值都为5
+a.insert(a.begin()+1,b+3,b+6); //b为数组，在a的第1个元素（从第0个算起）的位置插入b的第3个元素到第5个元素（不包括b+6），如b为1,2,3,4,5,9,8         ，插入元素后为1,4,5,9,2,3,4,5,9,8
+a.size(); 
+a.capacity(); //返回a在内存中总共可以容纳的元素个数
+a.resize(10); //将a的现有元素个数调至10个，多则删，少则补，其值随机
+a.resize(10,2); //将a的现有元素个数调至10个，多则删，少则补，其值为2
+a.reserve(100); //将a的容量（capacity）扩充至100，也就是说现在测试a.capacity();的时候返回值是100.这种操作只有在需要给a添加大量数据的时候才显得有意义，因为这将避免内存多次容量扩充操作（当a的容量不足时电脑会自动扩容，当然这必然降低性能）
+a.swap(b); 
+a==b; //b为向量，向量的比较操作还有!=,>=,<=,>,<
+```
+## **map**
 
-（1）`a.assign(b.begin(), b.begin()+3); //b为向量，将b的0~2个元素构成的向量赋给a`
-
-（2）`a.assign(4,2); //是a只含4个元素，且每个元素为2`
-
-（3）`a.back(); //最后一个元素`
-
-（4）`a.front(); //第一个元素`
-
-（5）`a[i]; //返回a的第i个元素，当且仅当a[i]存在`
-
-（6）`a.clear(); //清空`
-
-（7）`a.empty(); //判断a是否为空，空则返回ture,不空则返回false`
-
-（8）`a.pop_back(); //删除a向量的最后一个元素`
-
-（9）`a.erase(a.begin()+1,a.begin()+3); //删除a中第1个（从第0个算起）到第2个元素，也就是说删除的元素从a.begin()+1算起（包括它）一直到a.begin()+3（不包括它）`
-
-（10）`a.push_back(5);`
-
-（11）`a.insert(a.begin()+1,5); //在a的第1个元素（从第0个算起）的位置插入数值5，如a为1,2,3,4，插入元素后为1,5,2,3,4`
-
-（12）`a.insert(a.begin()+1,3,5); //在a的第1个元素（从第0个算起）的位置插入3个数，其值都为5`
-
-（13）`a.insert(a.begin()+1,b+3,b+6); //b为数组，在a的第1个元素（从第0个算起）的位置插入b的第3个元素到第5个元素（不包括b+6），如b为1,2,3,4,5,9,8         ，插入元素后为1,4,5,9,2,3,4,5,9,8`
-
-（14）`a.size(); `
-
-（15）`a.capacity(); //返回a在内存中总共可以容纳的元素个数`
-
-（16）`a.resize(10); //将a的现有元素个数调至10个，多则删，少则补，其值随机`
-
-（17）`a.resize(10,2); //将a的现有元素个数调至10个，多则删，少则补，其值为2`
-
-（18）`a.reserve(100); //将a的容量（capacity）扩充至100，也就是说现在测试a.capacity();的时候返回值是100.这种操作只有在需要给a添加大量数据的时候才显得有意义，因为这将避免内存多次容量扩充操作（当a的容量不足时电脑会自动扩容，当然这必然降低性能）`
-
-（19）`a.swap(b); `
-
-（20）`a==b; //b为向量，向量的比较操作还有!=,>=,<=,>,<`
-
-## **Map**
-
-`C++ Maps是一种关联式容器，包含“关键字/值”对`
-
-`begin()   返回指向map头部的迭代器`
-
-`clear() 删除所有元素`
-
-`count() 返回指定元素出现的次数**`
-
-`empty() 如果map为空则返回true**`
-
-`end() 返回指向map末尾的迭代器**`
-
-`equal_range() 返回特殊条目的迭代器对**`
-
-`erase() 删除一个元素`
-
-`find() 查找一个元素`
-
-`get_allocator() 返回map的配置器`
-
-`insert() 插入元素`
-
-`key_comp() 返回比较元素key的函数`
-
-`lower_bound() 返回键值>=给定元素的第一个位置 `
-
-`max_size() 返回可以容纳的最大元素个数`
-
-`rbegin() 返回一个指向map尾部的逆向迭代器`
-
-`rend() 返回一个指向map头部的逆向迭代器`
-
-`size() 返回map中元素的个数`
-
-`swap() 交换两个map`
-
-`upper_bound() 返回键值>给定元素的第一个位置`
-
-`value_comp() 返回比较元素value的函数`
-
-`map最基本的构造函数 map<关键字，键值> mapint`
+```cpp
+map<node,node> m;
+begin()   返回指向map头部的迭代器`
+clear() 删除所有元素`
+count() 返回指定元素出现的次数**
+empty() 如果map为空则返回true**
+end() 返回指向map末尾的迭代器**
+equal_range() 返回特殊条目的迭代器对**
+erase() 删除一个元素
+find() 查找一个元素
+get_allocator() 返回map的配置器
+insert() 插入元素
+key_comp() 返回比较元素key的函数
+lower_bound() 返回键值>=给定元素的第一个位置 
+max_size() 返回可以容纳的最大元素个数
+rbegin() 返回一个指向map尾部的逆向迭代器
+rend() 返回一个指向map头部的逆向迭代器
+size() 返回map中元素的个数
+swap() 交换两个map
+upper_bound() 返回键值>给定元素的第一个位置
+value_comp() 返回比较元素value的函数
+```
 
 **插入数据:**
 
 ```cpp
-
        cout << "第一种方法插入 ！" << endl;
-
        m.insert(pair<int ,string>(1,"stu1"));
-
        m.insert(pair<int ,string>(2,"stu2"));
-
        m.insert(pair<int ,string>(3,"stu3"));
-
        map<int,string>::iterator t;
-
-//    
-       for( t = m.begin(); t != m.end(); t++ )
-
-       {
-
-              cout << t->first << ' ' << t->second << endl;//t->first表示关键字，t->second 表示键值
-
-       }
-
+       for( t = m.begin(); t != m.end(); t++ )   cout << t->first << ' ' << t->second << endl;//t->first表示关键字，t->second 表示键值
        cout << "*****************************" << endl;
-
        cout << "第二种方法插入 ！" << endl;
-
        m[1] = "stu1";
-
        m[2] = "stu2";
-
        m[3] = "stu3";
-
-       for( t = m.begin(); t != m.end(); t++ )
-
-       {
-
-              cout << t->first << ' ' << t->second << endl;    
-
-       }
+       for( t = m.begin(); t != m.end(); t++ )   cout << t->first << ' ' << t->second << endl;    
 ```
 
 **检查键是否存在:**
@@ -2254,67 +2294,108 @@ std::map<int, int, std::greater<int> > m;
 **要按照键值排序则:**
 假设已有一组map<string,int>类型的数mp,则具体实现过程为：
 
-```
-vector< pair<string,int> > vec;
-
-for(map<string,int>::iterator it = mp.begin(); it != mp.end(); it++){
-
-vec.push_back( pair<string,int>(it->first,it->second) );
-
-   }
-
-sort(vec.begin(),vec.end(),cmp);
-
-bool cmp(pair<string,int> a, pair<string,int> b) {
-
-       return a.second < b.second;
-
-   }
-```
-
-## **二分函数**
-
 ```cpp
-#include <iostream>
-
-#include <algorithm>
-
-using namespace std;
-
-int a[8] = {1, 2, 4, 4, 5, 8, 10, 22};
-
-int main(){
-
-    auto x = lower_bound(a, a + 8, 4) ;//>=
-
-auto y = upper_bound(a, a + 8, 4) ;//>
-
-//获得的是数字的指针
-
-//加*即可获得数字本身
-
-    bool z = binary_search(a, a + 8, 4);//查找
-
-    cout<<*x<<" "<<*y<<" "<<z<<endl;
-
-    x = lower_bound(a, a + 8, 7) - a;//>=
-
-y = upper_bound(a, a + 8, 7) - a;//>
-
-//获得下标
-
-    z = binary_search(a, a + 8, 7);//查找
-
-    cout<<x<<" "<<y<<" "<<z<<endl;
-
-    return 0;
-
-}
-
-注：若减去数列则可以获得下标，否则得到数字;
-
-若找不到，则返回end，即数组/容器最后一个元素的下一个元素
+vector< pair<string,int> > vec;
+for(map<string,int>::iterator it = mp.begin(); it != mp.end(); it++)
+	vec.push_back( pair<string,int>(it->first,it->second) );
+sort(vec.begin(),vec.end(),cmp);
+bool cmp(pair<string,int> a, pair<string,int> b) 
+	return a.second < b.second;
 ```
+
+## **stack**
+```cpp
+//声明
+stack<int> s;
+stack<string> s;
+stack<***> s;
+```
+```cpp
+s.push(e)	  //元素e入栈
+s.pop()	      //移除栈顶元素 
+s.top()	      //取得栈顶元素（但不删除）
+s.empty()	  //检测栈内是否为空，空为真
+s.size()	  //返回栈内元素的个数 
+```
+
+## **pair**
+```cpp
+//1.初始化定义
+pair<string, int> p("wangyaqi",1);//带初始值的
+pair<string, int> p;//不带初始值的
+//2.赋值
+p = {"wang", 18};
+p = make_pair("wang", 18);
+p = pair<string, int>("wang", 18);
+//3.定义结构体数组
+pair<int,int> p[20];
+```
+
+## **string**
+
+at()	访问字符串中指定位置的字符（带边界检查）。
+```cpp	
+std::cout << str.at(0);
+```
+substr()	返回从指定位置开始的子字符串。	
+```cpp	
+std::string sub = str.substr(0, 5);
+```
+find()	查找子字符串在字符串中的位置。	
+```cpp
+std::cout << str.find("sub") << std::endl;
+```
+rfind()	从字符串末尾开始查找子字符串的位置。	
+```cpp
+std::cout << str.rfind("sub") << std::endl;
+```
+replace()	替换字符串中的部分内容。	
+```cpp
+str.replace(pos, length, "new_substring");
+```
+append()	在字符串末尾添加内容。	
+```cpp
+str.append(" more");
+```
+insert()	在指定位置插入内容。		
+```cpp
+str.insert(pos, "inserted");
+```
+erase()	删除指定位置的字符或子字符串。	
+```cpp
+str.erase(pos, length);
+```
+clear()	清空字符串。	
+```cpp
+str.clear();
+```
+data()	返回指向字符数据的指针（C++11 及之后的版本）。	
+```cpp
+const char* data = str.data();
+```
+compare()	比较两个字符串。	
+```cpp
+int result = str.compare("other");
+```
+find_first_of()	查找第一个匹配任意字符的位置。	
+```cpp
+size_t pos = str.find_first_of("aeiou");
+```
+find_last_of()	查找最后一个匹配任意字符的位置。	
+```cpp
+size_t pos = str.find_last_of("aeiou");
+```
+find_first_not_of()	查找第一个不匹配任意字符的位置。	
+```cpp
+size_t pos = str.find_first_not_of("aeiou");
+```
+find_last_not_of()	查找最后一个不匹配任意字符的位置。	
+```cpp
+size_t pos = str.find_last_not_of("aeiou");
+```
+
+
+
 
 ## **memset函数**
 
