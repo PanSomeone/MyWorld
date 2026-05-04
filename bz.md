@@ -2308,14 +2308,57 @@ bool cmp(pair<string,int> a, pair<string,int> b)
 stack<int> s;
 stack<string> s;
 stack<***> s;
-```
-
-```cpp
 s.push(e)	  //元素e入栈
 s.pop()	      //移除栈顶元素 
 s.top()	      //取得栈顶元素（但不删除）
 s.empty()	  //检测栈内是否为空，空为真
 s.size()	  //返回栈内元素的个数 
+```
+
+### **栈的应用----括号匹配**
+
+**B2165 括号匹配**
+
+**题目描述**
+
+给定只由 $6$ 种括号字符组成的字符串：`(`, `)`, `[`, `]`, `{`, `}`。判断每个字符串是否为“合法括号序列”，合法则输出 YES，否则输出 NO。合法括号序列的定义：
+  - 空串合法；
+  - 若 A 合法，则 `(A)`, `[A]`, `{A}` 均合法；
+  - 若 A 与 B 均合法，则 AB 合法。
+
+```cpp
+#include<bits/stdc++.h>
+#define endl '\n'
+using namespace std;
+void solve(){
+	stack<char>sc;
+	string s;
+	cin>>s;
+	for(int i=0;i<s.size();i++){
+		if(s[i]=='('||s[i]=='{'||s[i]=='['){
+			sc.push(s[i]);
+		}
+		else{
+			if(sc.empty()){
+				cout<<"NO"<<endl;
+				return ;
+			}
+			if((s[i]==')'&&sc.top()!='(')||(s[i]==']'&&sc.top()!='[')||(s[i]=='}'&&sc.top()!='{')){
+				cout<<"NO"<<endl;
+				return ;
+			}
+			else{
+				sc.pop();
+			}
+		}
+		
+	}
+	if(!sc.empty()){
+		cout<<"NO"<<endl;
+	}
+	else cout<<"YES"<<endl;
+}
+int main().....
 ```
 
 ## **pair**
@@ -2581,3 +2624,5 @@ $$
 
 &nbsp;
 假设单次计算$s( \cdot )$的时间复杂度为$O(1)$则整个过程的时间复杂度为$O(n)$
+
+5. 差越大积越小
