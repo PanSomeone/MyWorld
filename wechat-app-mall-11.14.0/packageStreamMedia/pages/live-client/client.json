@@ -1,7 +1,0 @@
-{
-	"navigationStyle": "custom",
-  "usingComponents": {
-    "like-dz":"../../components/like-dz/like-dz"
-  },
-  "disableScroll": true
-}
