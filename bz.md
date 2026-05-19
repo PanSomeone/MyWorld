@@ -1,3 +1,5 @@
+// 待处理：线段树衍生，莫队，反悔贪心
+
 <div STYLE="page-break-after: always;"></div>
 
 # **空白开头**
@@ -2351,7 +2353,7 @@ void solve(){
 				sc.pop();
 			}
 		}
-	
+
 	}
 	if(!sc.empty()){
 		cout<<"NO"<<endl;
@@ -2570,6 +2572,192 @@ signed main(){
 8
 20
 */
+```
+
+## **树状数组**
+
+### 基础树状数组
+
+**题目描述**
+
+如题，已知一个数列，你需要进行下面两种操作：
+
+- 将某一个数加上 $x$；
+- 求出某区间每一个数的和。
+
+**输入格式**
+
+第一行包含两个正整数 $n,m$，分别表示该数列数字的个数和操作的总个数。
+
+第二行包含 $n$ 个用空格分隔的整数，其中第 $i$ 个数字表示数列第 $i$ 项的初始值。
+
+接下来 $m$ 行每行包含 $3$ 个整数，表示一个操作，具体如下：
+
+- `1 x k`  含义：将第 $x$ 个数加上 $k$；
+- `2 x y`  含义：输出区间 $[x,y]$ 内每个数的和。
+
+**输出格式**
+
+输出包含若干行整数，即为所有操作 $2$ 的结果。
+
+```cpp
+#include<bits/stdc++.h>
+#define endl '\n'
+using namespace std;
+const int M=5e5+10;
+int num[M];
+int tree[M];//下标一定从1开始
+int n,m;
+
+// 得到i最右侧的1的状态
+// 其他位都是0
+int lowbit(int i){
+	return i & -i;
+}
+
+void add(int i,int v){
+	while(i<=n){
+		tree[i]+=v;
+		i+=lowbit(i);
+	}
+}
+//累加和
+int sum(int i){
+	int ans=0;
+	while(i>0){
+		ans+=tree[i];
+		i-=lowbit(i);
+	}
+	return ans;
+}
+
+int check(int l,int r){
+	return sum(r)-sum(l-1);
+}
+void solve(){
+	int t;
+	cin>>t;
+	if(t==1){
+		int x,k;
+		cin>>x>>k;
+		add(x,k);
+	}
+	else{
+		int x,y;
+		cin>>x>>y;
+		cout<<check(x,y)<<endl;
+	}
+}
+
+int main(){
+	ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);
+	int _=1;
+	//cin>>_;
+	cin>>n>>m;
+	for(int i=1;i<=n;i++){
+		int o;
+		cin>>o;
+		add(i,o);//建立树状数组
+	}
+
+	while(m--){
+		solve();
+	}
+	return 0;
+}
+```
+
+### 树状数组的优化（利用差分数组实现区间修改和定点查询）
+
+ **题目描述**
+
+如题，已知一个数列，你需要进行下面两种操作：
+
+1. 将某区间每一个数加上 $x$；
+2. 求出某一个数的值。
+
+ **输入格式**
+
+第一行包含两个整数 $N$、$M$，分别表示该数列数字的个数和操作的总个数。
+
+第二行包含 $N$ 个用空格分隔的整数，其中第 $i$ 个数字表示数列第 $i $ 项的初始值。
+
+接下来 $M$ 行每行包含 $2$ 或 $4$ 个整数，表示一个操作，具体如下：
+
+操作 $1$： 格式：`1 x y k` 含义：将区间 $[x,y]$ 内每个数加上 $k$；
+
+操作 $2$： 格式：`2 x` 含义：输出第 $x$ 个数的值。
+
+ **输出格式**
+
+输出包含若干行整数，即为所有操作 $2$ 的结果。
+
+```cpp
+#include<bits/stdc++.h>
+#define endl '\n'
+using namespace std;
+const int M=5e5+10;
+int num[M];
+int tree[M];//下标一定从1开始
+int n,m;
+
+//区别在于 用差分数组去建立树状数组
+int lowbit(int i){
+	return i & -i;
+}
+
+void add(int i,int v){
+	while(i<=n){
+		tree[i]+=v;
+		i+=lowbit(i);
+	}
+}
+//累加和
+int sum(int i){
+	int ans=0;
+	while(i>0){
+		ans+=tree[i];
+		i-=lowbit(i);
+	}
+	return ans;
+}
+
+int check(int l,int r){
+	return sum(r)-sum(l-1);
+}
+void solve(){
+	int t;
+	cin>>t;
+	if(t==1){
+		int l,r,k;
+		cin>>l>>r>>k;
+		add(l,k);
+		add(r+1,-k);
+	}
+	else{
+		int x;
+		cin>>x;
+		cout<<sum(x)<<endl;
+	}
+}
+
+int main(){
+	ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);
+	int _=1;
+	//cin>>_;
+	cin>>n>>m;
+	for(int i=1;i<=n;i++){
+		int o;
+		cin>>o;
+		add(i,o);
+		add(i+1,-o);//用差分建立
+	}
+
+	while(m--){
+		solve();
+	}
+	return 0;
+}
 ```
 
 ## **memset函数**
