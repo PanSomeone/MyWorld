@@ -1,4 +1,4 @@
-// 待处理：线段树衍生，莫队，反悔贪心
+// 待处理：线段树衍生，莫队
 
 <div STYLE="page-break-after: always;"></div>
 
@@ -841,6 +841,68 @@ signed main()
     while (_--)  
         solve();  
     return 0;  
+}
+```
+
+## **反悔贪心**
+
+ CF865D Buy Low Sell High
+
+ **题目描述**
+
+你可以完美地预测某只股票接下来 $N$ 天的价格，你想利用这一知识盈利，但你每天只想买卖一股，这表明你每天要么什么都不干，要么买入一股，要么卖出一股。起初你没有股票，你也不能在没有股票时卖出股票。你希望在第 $N$ 天结束时不持有股票，并最大化盈利。
+
+ **输入格式**
+
+第一行一个整数 $N$（$2 \le N \le 3 \times 10^5$），表示天数。
+
+接下来一行 $N$ 个整数 $p_1,p_2,\dots p_N$（$1 \le p_i \le 10^6$），表示第 $i$ 天的股价。
+
+ **输出格式**
+
+输出你第 $N$ 天结束时的最大盈利。
+
+ **样例解释**
+
+在股价为 $5,4$ 时各买入一股，在股价为 $9,12$ 时各卖出一股，接着在股价为 $2$ 时买入一股，股价为 $10$ 时卖出一股，总收益为 $20$。
+
+```cpp
+#include<bits/stdc++.h>
+#define endl '\n'
+#define int long long 
+using namespace std;
+const int M=3e5+10;
+int num[M];
+priority_queue<int,vector<int>,greater<int> >q;
+void solve(){
+	int n;
+	int ans=0;
+	cin>>n;
+	for(int i=1;i<=n;i++){
+		cin>>num[i];
+	}
+	for(int i=1;i<=n;i++){
+		if(!q.empty() && q.top()< num[i]){
+			ans+=(num[i]-q.top());
+			q.pop();
+			q.push(num[i]);//买i，为了反悔
+			// 【反悔操作】把当前价 push 进去，将来如果有更高价，
+			// 可以把这次卖出“升级”成在这里买入，继续赚更多
+		}
+		q.push(num[i]);//买i，为了交易
+		// 【正常买入】假设今天买入一股，作为未来可能的持仓
+	}
+	cout<<ans<<endl;
+}
+
+signed main(){
+	ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);
+	int _=1;
+	//cin>>_;
+	while(_--){
+		solve();
+	}
+	return 0;
 }
 ```
 
