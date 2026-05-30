@@ -342,6 +342,12 @@ int main(){
 ```
 
 ```cpp
+// 全排列stl
+//  vector<char> chars = {'a', 'b', 'c'};
+//   do {
+//     cout << chars[0] << chars[1] << chars[2] << endl;
+//   } while (next_permutation(chars.begin(), chars.end()));
+
 #include<bits/stdc++.h>  
 using namespace std;  
 int n,num[15],ans[15];  
@@ -2260,19 +2266,16 @@ signed main()
 # **数据结构 STL 特殊库函数**
 
 ## **queue**
-
+```cpp
 1.push() 在队尾插入一个元素
-
 2.pop() 删除队列第一个元素
-
 3.size() 返回队列中元素个数
-
 4.empty() 如果队列空则返回true
-
 5.front() 返回队列中的第一个元素
-
 6.back() 返回队列中最后一个元素
-
+7.clear() 清空队列
+8.swap() 交换两个队列
+```
 ## **priority_queue**
 
 **(默认大到小)**
@@ -2289,7 +2292,7 @@ q.top();//返回q的第一个元素
 ```
 
 ## **set**
-```
+```cpp
 insert(元素): 插入一个元素。
 erase(元素): 删除一个元素。
 find(元素): 查找一个元素。
@@ -2299,16 +2302,30 @@ clear(),删除set容器中的所有的元素
 empty(),判断set容器是否为空
 max_size(),返回set容器可能包含的元素最大个数
 size(),返回当前set容器中的元素个数
-rbegin,返回的值和end()相同
+rbegin(),返回的值和end()相同
 rend(),返回的值和rbegin()相同
 ```
 **set的输出不支持访问下标**
-  ` for(const auto& person :q){  cout<<person.name<<endl;  }`
-
+` for(const auto& person :q){  cout<<person.name<<endl;  }`//输出set容器中的所有元素
 ## **vector**
 
 **(记得开空间)**
 
+```cpp
+二维
+vector<vector<int>> table(size1, vector<int>(size2, 0));//初始化一个二维向量，大小为size1*size2，每个元素都为0
+输入
+for (int i = 0; i < rows; ++i) {
+        vector<int> row;          // 一行数据
+        int val;
+        // 假设读取直到行末（如遇到换行停止），这里以输入 4 个数为例
+        for (int j = 0; j < 4; ++j) {
+            cin >> val;
+            row.push_back(val);
+        }
+        matrix.push_back(row);    // 整行加入
+}
+```
 ```cpp
 a.assign(b.begin(), b.begin()+3); //b为向量，将b的0~2个元素构成的向量赋给a
 a.assign(4,2); //是a只含4个元素，且每个元素为2
@@ -2336,12 +2353,12 @@ a==b; //b为向量，向量的比较操作还有!=,>=,<=,>,<
 
 ```cpp
 map<node,node> m;
-begin()   返回指向map头部的迭代器`
-clear() 删除所有元素`
-count() 返回指定元素出现的次数**
-empty() 如果map为空则返回true**
-end() 返回指向map末尾的迭代器**
-equal_range() 返回特殊条目的迭代器对**
+begin()   返回指向map头部的迭代器
+clear() 删除所有元素
+count() 返回指定元素出现的次数
+empty() 如果map为空则返回true
+end() 返回指向map末尾的迭代器
+equal_range() 返回特殊条目的迭代器对
 erase() 删除一个元素
 find() 查找一个元素
 get_allocator() 返回map的配置器
@@ -2377,7 +2394,7 @@ value_comp() 返回比较元素value的函数
 **检查键是否存在:**
 
 ```cpp
-if (myMap.find(key) != myMap.end()) {// 键存在}
+if (myMap.find(key) != myMap.end()) { // 键存在}
 ```
 
 **删除元素:**
@@ -2402,7 +2419,7 @@ std::map<int, int, std::greater<int> > m;
 
 **要按照键值排序则:**
 假设已有一组map<string,int>类型的数mp,则具体实现过程为：
-
+next_permutation(number.begin(), number.end());
 ```cpp
 vector< pair<string,int> > vec;
 for(map<string,int>::iterator it = mp.begin(); it != mp.end(); it++)
@@ -2488,9 +2505,10 @@ pair<int,int> p[20];
 
 ## **string**
 
-at()	访问字符串中指定位置的字符（带边界检查）。
+
 
 ```cpp
+at()	访问字符串中指定位置的字符（带边界检查）。
 std::cout << str.at(0);
 
 substr()	返回从指定位置开始的子字符串。
@@ -2498,6 +2516,7 @@ std::string sub = str.substr(0, 5);
 
 find()	查找子字符串在字符串中的位置。
 std::cout << str.find("sub") << std::endl;
+if (str.find("sub") != s.npos)  //如果没找到，返回一个特别的标志c++中用npos表示，我这里npos取值是4294967295，
 
 rfind()	从字符串末尾开始查找子字符串的位置。
 std::cout << str.rfind("sub") << std::endl;
@@ -2534,6 +2553,11 @@ size_t pos = str.find_first_not_of("aeiou");
 
 find_last_not_of()	查找最后一个不匹配任意字符的位置。
 size_t pos = str.find_last_not_of("aeiou");
+
+int n = 541;
+cout << "整数变字符串：" + to_string(n) << endl;
+
+
 ```
 
 ## **线段树**
@@ -3045,9 +3069,7 @@ memset(A, value, sizeof A);
 memset(a , 0x3f , sizeof a);
 ```
 
-<div STYLE="page-break-after: always;"></div>
-
-# **数学小妙招**
+# **数学小妙招 && 杂项**
 
 1. $$
    (a - b) \equiv 0 \pmod{c}
@@ -3057,7 +3079,10 @@ $$
 a \equiv b \pmod{c}
 $$
 
-2. $long long的最大范围在5*10^{14} $
+2. 各类型范围
+   (1) $long long的最大范围在9.22 × 10¹⁸ $
+   (2) $double 最大范围在1.798 × 10³⁰⁸$
+   (3) $long double 最大范围在1.190 × 10⁴⁹³²$
    &nbsp;
 3. $2^{60}刚好大于10^{18}$
    &nbsp;
@@ -3093,3 +3118,32 @@ $$
    $$
    a^b\equiv a^{b\bmod\phi(m)}\ (\bmod\ m)
    $$
+7. 检测运行时间
+```cpp
+// 开始时间
+    clock_t start = clock();
+    // 要执行的代码
+    // ...
+	test01();
+    // 结束时间
+    clock_t end = clock();
+
+    // 计算执行时间（以秒为单位）
+    double execution_time = (double)(end - start) / CLOCKS_PER_SEC;
+```
+
+```cpp
+auto start = chrono::high_resolution_clock::now();
+
+    // 要执行的代码
+    // ...
+
+    // 结束时间点
+    auto end = chrono::high_resolution_clock::now();
+
+    // 计算持续时间
+    chrono::duration<double, milli> duration = end - start;
+
+    // 输出执行时间
+    cout << "程序执行时间：" << duration.count() << "毫秒" << endl;
+```
