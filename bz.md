@@ -1,6 +1,7 @@
+
 <div STYLE="page-break-after: always;"></div>
 
-* [ ] **开头**
+# **空白开头**
 
 ```cpp
 #include<bits/stdc++.h>
@@ -333,13 +334,6 @@ int main(){
 ```
 
 ## **全排列**
-```cpp
- int num[3]={1,2,3};  
-    do  
-    {  
-        cout<<num[0]<<" "<<num[1]<<" "<<num[2]<<endl;  
-    }while(next_permutation(num,num+3));  //生成全排列
-```
 
 ```cpp
 // 全排列stl
@@ -632,23 +626,36 @@ int main(){
 ```
 
 ## **前缀和函数**
-   **std::partial_sum(a,a+6,res1);**
-需要注意的是，如果想计算到 `a[i]`处的部分和，last`参数必须传入 `a+i+1`。
+
+       **std::partial_sum(a,a+6,res1);**
+需要注意的是，如果想计算到 `a[i]`处的部分和，`__last`参数必须传入 `a+i+1`。
 
 ```cpp
 #include <iostream>
+
 using namespace std;
+
 int N, A[10000], B[10000];
-int main() { 
-	cin >> N; 
-	for (int i = 0; i < N; i++)  cin >> A[i]; 
+
+ int main() { cin >> N; for (int i = 0; i < N; i++) { cin >> A[i]; }
+
 // 前缀和数组的第一项和原数组的第一项是相等的。
-	B[0] = A[0]; 
-	for (int i = 1; i < N; i++) B[i] = B[i - 1] + A[i];
+
+B[0] = A[0]; for (int i = 1; i < N; i++) {
+
 // 前缀和数组的第 i 项 = 原数组的 0 到 i-1 项的和 + 原数组的第 i 项。
- 	for (int i = 0; i < N; i++) cout << B[i] << " ";
-	return 0; 
-	}
+
+B[i] = B[i - 1] + A[i];
+
+ }
+
+ for (int i = 0; i < N; i++) {
+
+cout << B[i] << " ";
+
+}
+
+return 0; }
 ```
 
 ## **排队接水（包含小数位的保留）**
@@ -1305,8 +1312,6 @@ int main(){
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
-
 # **数学算法（含高精度）**
 
 ## **最大公约数 & 最小公倍数**
@@ -1667,11 +1672,9 @@ signed main()
 $\phi(n)$ 表示从 $1$ 到 $n$ 所有与 $n$ 互质的数的数量。表达式为：$\sum\limits_{i=1}^{n}[\gcd(i,n)=1]$
 莫比乌斯函数的定义
 $\mu(n)$ 的定义为：
-
 $$
 \mu(n) =\left\{ \begin{aligned} & 1 & n=1 \\ & (-1)^m & n=p_1p_2p_2\dots p_m，其中 p_i 为不同的素数 \\ & 0 & 其他 \end{aligned} \right.
 $$
-
 欧拉函数的通解公式
 $\phi(n)=n\prod\limits_{i=1}^{k}(1-\frac{1}{p^i})$（$p_i\mid n$，$p_i$ 为素数，$k$ 为小于等于 $n$ 的素数的数量）
 原理：$\phi(p^k)=p^k-p^{k-1}=p^{k-1}\phi(p)$，$n=p_1^{a_1}\times p_2^{a_2}\times \cdots \times p_k^{a_k}$。
@@ -1680,11 +1683,10 @@ $[n=1]=\sum\limits_{d\mid n}\mu(d)$
 
 **题目描述：**
 给定一个整数 n，求 $\sum_{i=1}^{n} \phi(i)$ 的值。
-**输入格式**：
+**输入格式**： 
 一行一个整数 n (1 ≤ n ≤ 10^6)
 **输出格式：**
 输出一个整数，表示欧拉函数的和
-
 ```cpp
 int phi[N];           // 存储欧拉函数值
 vector<int> fac[N];   // 存储每个数的所有因数
@@ -1696,11 +1698,11 @@ void get_eulers() {
             fac[j].push_back(i);  // i 是 j 的因数
         }
     }
-  
+    
     phi[1] = 1;  // 边界条件
-  
+    
     // 第二步：利用递推公式计算欧拉函数
-    for (int i = 2; i F<= N - 10; i++) {
+    for (int i = 2; i <= N - 10; i++) {
         phi[i] = i;  // 初始化为 i
         for (auto j : fac[i]) {
             if (j == i) continue;  // 跳过自身
@@ -1713,8 +1715,6 @@ void get_eulers() {
 ## **差分数组**
 
 **当你将原始数组中元素同时加上或者减掉某个数，那么他们的差分数组其实是不会变化的。**
-
-<div STYLE="page-break-after: always;"></div>
 
 # **图论**
 
@@ -2262,7 +2262,6 @@ signed main()
 }
 ```
 
-<div STYLE="page-break-after: always;"></div>
 # **数据结构 STL 特殊库函数**
 
 ## **queue**
@@ -2895,13 +2894,12 @@ int main(){
 
 ## **莫队**
 
-**题目描述：**
+**题目描述：** 
 给定一个长度为 n 的数组，有 q 次查询，每次查询区间 [l, r] 内不同数的个数。
-**输入格式：**
+**输入格式：** 
 第一行两个整数 n, q (1 ≤ n, q ≤ 10^5) 第二行 n 个整数，表示数组元素 接下来 q 行，每行两个整数 l, r，表示查询区间
-**输出格式：**
+**输出格式：** 
 输出 q 行，每行一个整数，表示该区间内不同数的个数
-
 ```cpp
 signed main() {
     int n;
@@ -2910,7 +2908,7 @@ signed main() {
     for (int i = 1; i <= n; i++) {
         cin >> w[i];
     }
-  
+    
     int q;
     vector<array<int, 3>> query(q + 1);  // 存储查询：{l, r, id}
     for (int i = 1; i <= q; i++) {
@@ -2918,7 +2916,7 @@ signed main() {
         cin >> l >> r;
         query[i] = {l, r, i};  // 保存原始查询顺序
     }
-  
+    
     // 计算块长：通常取 n / sqrt(q)
     int Knum = n / min<int>(n, sqrt(q));
 
@@ -2926,7 +2924,7 @@ signed main() {
     for (int i = 1; i <= n; i++) {
         K[i] = (i - 1) / Knum + 1;
     }
-  
+    
     // 莫队排序：奇偶化优化
     sort(query.begin() + 1, query.end(), [&](auto x, auto y) {
         if (K[x[0]] != K[y[0]]) return x[0] < y[0];  // 先按左端点块排序
@@ -2948,39 +2946,38 @@ signed main() {
 //     if (x[3] & 1) return x[1] < y[1];      // 奇数块：右端点升序
 //     return x[1] > y[1];                     // 偶数块：右端点降序（奇偶化优化）
 // });
-  
+    
     int l = 1, r = 0, val = 0;  // 当前区间 [l, r]，val 为当前答案
     vector<int> ans(q + 1);
     for (int i = 1; i <= q; i++) {
         auto [ql, qr, id] = query[i];
-    
+        
         auto add = [&](int x) -> void {};  // 添加元素到当前区间
         auto del = [&](int x) -> void {};  // 从当前区间删除元素
-    
+        
         // 移动左右指针到目标区间
         while (l > ql) add(w[--l]);  // 左指针左移
         while (r < qr) add(w[++r]);  // 右指针右移
         while (l < ql) del(w[l++]);  // 左指针右移
         while (r > qr) del(w[r--]);  // 右指针左移
-    
+        
         ans[id] = val;  // 记录答案
     }
-  
+    
     for (int i = 1; i <= q; i++) {
         cout << ans[i] << endl;
     }
 }
 ```
-
 ### **带修改的莫队**
 
-**题目描述：**
+**题目描述：** 
 给定一个长度为 n 的数组，有 q 次操作，分为两种：
 Q l r：查询区间 [l, r] 内不同数的个数
 P idx val：将位置 idx 的值修改为 val
-**输入格式：**
+**输入格式：** 
 第一行两个整数 n, q (1 ≤ n, q ≤ 10^5) 第二行 n 个整数，表示数组元素 接下来 q 行，每行一个操作
-**输出格式：**
+**输出格式：** 
 对于每个查询操作，输出一行答案
 
 ```cpp
@@ -2991,12 +2988,12 @@ signed main() {
     for (int i = 1; i <= n; i++) {
         cin >> w[i];
     }
-  
+    
     // query: {左区间, 右区间, 累计修改次数, 下标}
     vector<array<int, 4>> query = {{}};  
     // modify: {修改的值, 修改的元素下标}
     vector<array<int, 2>> modify = {{}};  
-  
+    
     // 读入操作
     for (int i = 1; i <= q; i++) {
         char op;
@@ -3012,44 +3009,44 @@ signed main() {
             modify.push_back({w, idx});  // 记录修改
         }
     }
-  
+    
     int Knum = 2154;  // 块长，通常取 n^(2/3)
     vector<int> K(n + 1);
     for (int i = 1; i <= n; i++) {
         K[i] = (i - 1) / Knum + 1;  // 计算每个位置的块号
     }
-  
+    
     // 三维排序：左块 → 右块 → 时间戳
     sort(query.begin() + 1, query.end(), [&](auto x, auto y) {
         if (K[x[0]] != K[y[0]]) return x[0] < y[0];  // 按左端点块排序
         if (K[x[1]] != K[y[1]]) return x[1] < y[1];  // 按右端点块排序
         return x[3] < y[3];                           // 按时间戳排序
     });
-  
+    
     int l = 1, r = 0, val = 0;  // 当前区间 [l, r]，val 为答案
     int t = 0;  // 当前时间戳（已应用的修改次数）
     vector<int> ans(query.size());
-  
+    
     for (int i = 1; i < query.size(); i++) {
         auto [ql, qr, qt, id] = query[i];
-    
+        
         auto add = [&](int x) -> void {};    // 添加元素
         auto del = [&](int x) -> void {};    // 删除元素
         auto time = [&](int x, int l, int r) -> void {};  // 时间移动
-    
+        
         // 移动左右指针
         while (l > ql) add(w[--l]);
         while (r < qr) add(w[++r]);
         while (l < ql) del(w[l++]);
         while (r > qr) del(w[r--]);
-    
+        
         // 移动时间指针（应用或撤销修改）
         while (t < qt) time(++t, ql, qr);  // 前进时间，应用修改
         while (t > qt) time(t--, ql, qr);  // 回退时间，撤销修改
-    
+        
         ans[id] = val;  // 记录答案
     }
-  
+    
     for (int i = 1; i < ans.size(); i++) {
         cout << ans[i] << endl;
     }
