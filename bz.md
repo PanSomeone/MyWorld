@@ -1718,6 +1718,149 @@ void get_eulers() {
 
 # **图论**
 
+## **部分 图的概念**
+
+自环 (loop)：对 𝐸中的边 𝑒 =(𝑢,𝑣)，若 𝑢 =𝑣，则 𝑒被称作一个自环．
+重边 (multiple edge)：若 𝐸中存在两个完全相同的元素（边）𝑒1,𝑒2  则它们被称作（一组）重边．
+简单图 (simple graph)：若一个图中没有自环和重边，它被称为简单图．具有至少两个顶点的简单无向图中一定存在度相同的结点．
+
+## **图的存储**
+
+### **邻接表存储**
+```
+遍历整张图：𝑂(𝑛 +𝑚)
+空间复杂度：𝑂(𝑚)
+```
+```cpp
+vector<bool> vis;
+vector<vector<int>> adj;
+bool find_edge(int u, int v) {
+  for (int i = 0; i < adj[u].size(); ++i) {
+    if (adj[u][i] == v) {
+      return true;
+    }
+  }
+  return false;
+}
+void dfs(int u) {
+  if (vis[u]) return;
+  vis[u] = true;
+  for (int i = 0; i < adj[u].size(); ++i) dfs(adj[u][i]);
+}
+```
+### **前向星存储**
+```
+遍历整张图：𝑂(𝑛 +𝑚)
+空间复杂度：𝑂(𝑚)
+```
+```cpp
+int head[N], nxt[N], to[N];
+int cnt;
+// head[u] 和 cnt 的初始值都为 -1
+void add(int u, int v) {
+  nxt[++cnt] = head[u];  // 当前边的后继
+  head[u] = cnt;         // 起点 u 的第一条边
+  to[cnt] = v;           // 当前边的终点
+}
+// 遍历 u 的出边
+for (int i = head[u]; ~i; i = nxt[i]) {  // ~i 表示 i != -1
+  int v = to[i];
+}
+```
+
+## **二分图染色**
+
+对于无向图 $G=(V,E)$，如果可以把结点集分成不相交的部分，即 $X$ 和 $ Y=V-X$，使得每条边的其中一个端点在 $X$ 中，另一个在 $Y$ 中，则称 $ G $ 为二分图（bipartite graph）。二分图的另一种等价说法是，可以把每个结点着以黑色和白色之一，使得每条边的两个端点颜色不同，所以**黑白染色法**这就是判定二分图的基本算法。不难发现，非连通图是二分图当且仅当每个连通分量都是二分图
+
+**U169194 【模板】二分图判定**
+
+**题目描述**
+
+期末考试的时候，老师要把全班学生分在两个考场。
+
+老师在分考场的时候要考虑尽量避免把相互之间比较熟悉的同学分在同一的考场，因为他们可能会联合起来作弊。
+
+现在老师统计了同学们相互之间熟悉情况，他想知道能否合理地分考场，将所有相互熟悉的同学分在不同的考场
+
+**输入格式**
+
+输入第一行是一个整数 $T$，表示有 $T（T\leq20）$ 组测试数据。
+
+接下来每一组测试数据包括两个部分。
+
+第一部分只有一行，有两个整数 $n$,$m$$（2 \leq n\leq 1000 ,m \leq \dfrac{n(n-1)}{2}）$, 分别表示学生的人数和老师掌握的学生之间熟悉关系个数。
+
+第二部分有 $m$ 行，每行有两个整数 $a$,$b$，表示学生 $a$ 和学生 $b$ 相互认识，即有可能联合起来作弊。$a$ 和 $b$ 分别表示学生的标号，且从 $1$ 开始 $（1 \leq a,b \leq n）$
+
+**输出格式**
+
+对于每组测试数据，输出按照样例的格式。
+
+第一行表示是第几组数据，即输出 “case n:”。
+
+如果能把所有学生分在两个考场，且不可能发生作弊行为，则第二行输出 Yes，否则输出 No。
+```cpp
+#include<bits/stdc++.h>
+#define endl '\n'
+using namespace std;
+vector<vector<int> >adj;
+vector<int>color,vis;
+int n,m;
+// 深度优先搜索染色，判断当前连通分量是否为二分图
+
+bool dfs(int cr){// 当前访问的节点编号
+	vis[cr]=true;//标记
+	for(int nex:adj[cr]){//遍历cr的邻接节点
+		if(vis[nex]){//如果访问过了
+			if(color[cr]==color[nex])return false;//如果颜色相同那就不是二分图
+		}	
+		else {
+				color[nex] = color[cr] ^ 1  ;//未访问就把相邻的颜色变成他的相反
+				if(!dfs(nex)) return false;//递归染色
+			}
+	}
+	return true;
+}
+bool check(){
+	for(int i=1;i<=n;i++){
+		if(!vis[i]){
+			color[i]=0;//从i开始染色，把i染成0
+			if(!dfs(i)) return false;
+		}
+	}
+	return true;
+}
+void solve(){
+	cin>>n>>m;
+	adj.clear();
+	vis.clear();
+	color.clear();
+	color.resize(n+1);
+	vis.resize(n+1);
+	adj.resize(n+1);
+	for(int i=0;i<m;i++){
+		int u,v;
+		cin>>u>>v;
+		adj[u].push_back(v);
+		adj[v].push_back(u);
+	}
+	if(check()) cout<<"Yes"<<endl;
+	else cout<<"No"<<endl; 
+}
+int main(){
+	ios::sync_with_stdio(false),cin.tie(0),cout.tie(0);
+	int _=1;
+	cin>>_;
+	int cnt=1;
+	while(_--){
+		cout<<"case "<<cnt<<":"<<endl;
+		solve();
+		cnt++;
+	}
+	return 0;
+}
+```
+
 ## **最小生成树模板**
 
 **P3366 【模板】最小生成树**
